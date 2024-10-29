@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="/css/Profile.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h3>Edit Profile</h3>
+            <form action="/Profile/edit" method="POST" enctype="multipart/form-data"> <!-- Added enctype -->
+                <div>
+                    <label for="fname">First Name</label>
+                    <input type="text" name="fname" value="<%= user.fname %>" required />
+                </div>
+                <div>
+                    <label for="lname">Last Name</label>
+                    <input type="text" name="lname" value="<%= user.lname %>" required />
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" value="<%= user.email %>" required />
+                </div>
+                <div>
+                    <label for="profileImage">Profile Image</label>
+                    <input type="file" name="profileImage" accept="image/*" /> <!-- New input field -->
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+            
+            
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe2Clean</title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/CreatePost.css" />
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.jpg">
+</head>
+<body>
+  
+    <nav>
+        <div class="container">
+            
+            <div class="logo-container">
+                <img src="/images/logo.jpg" class="logo">
+                <div class="logo-text">Swipe2Clean</div>
+            </div>
+           
+            <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input type="search" id="sec" placeholder="search"> 
+            </div>
+            <li>
+                <a class="menu-item" id="notification" href="#">
+                    <i class="uil uil-envelope"><small class="notification-count">9+</small></i>
+                </a>
+            </li>
+            <div class="create">
+                <label class="btn btn-primary" for="create a post">Organise</label>
+                <div class="profile-photo">
+                    <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            <!-- Left -->
+            <div class="left">
+                <a href="/profile" class="profile">
+                    <div class="profile-photo">
+                        <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
+                    </div>
+                    <div class="handel">
+                        <h4><%= user.username %><i class="uil-pen"></i></h4>
+                        <p class="text-muted">bio...</p>
+                    </div>
+                </a>
+                
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <ul>
+                        <li>
+                            <a class="menu-item active" href="/YourPost">
+                                <i class="uil uil-edit"></i>
+                                <span><h3>Feed</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Event">
+                                <i class="uil uil-home"></i>
+                                <span><h3>Events</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Wallet">
+                                <i class="uil uil-globe"></i>
+                                <span><h3>Wallet</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Complain">
+                                <i class="uil uil-user-location"></i>
+                                <span><h3>Complain</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/leaderboard">
+                                <i class="uil uil-calendar-alt"></i>
+                                <span><h3>Leaderboard</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Certificate">
+                                <i class="uil uil-book-reader"></i>
+                                <span><h3>Certificate</h3></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/index">
+                                <i class="uil uil-setting"></i>
+                                <span><h3>Logout</h3></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Create Post Button -->
+                <a href="/CreatePost"><label for="create-post" class="btn btn-primary">Create Post</label></a>
+            </div>
+            
+            <!-- Middle -->
+            <div class="middle">
+                <div class="feeds">
+                    <!-- First Feed -->
+                    <div class="cont">
+                        <div class="wrapper">
+                            <section class="post">
+                                <header>Create Post</header>
+                                <form action="/CreatePost" method="POST" enctype="multipart/form-data">
+                                    <div class="content">
+                                        <img src="/images/logo.png" alt="logo" id="profilepic">
+                                        <div class="details">
+                                            <a href="/Profile" class="profile"><h3><%= user.username %></h3></a>
+                                            <p><%= user.email %></p>
+                                        </div>
+                                    </div>
+                                    <textarea placeholder="Share your thoughts!!!!!" name="content" spellcheck="false"></textarea>
+                                    <div class="theme-emoji"></div>
+                                    <div class="options">
+                                        <p>Post Image If Any!!</p>
+                                        <ul class="list">
+                                            <li>
+                                                <!-- Image upload input -->
+                                                <input type="file" name="image" accept="image/*">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button>Post</button>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <script>
+        const cont = document.querySelector(".cont"),
+              privacy = cont.querySelector(".post .privacy"),
+              arrowBack = cont.querySelector(".audience .arrow-back");
+  
+        privacy.addEventListener("click", () => {
+            cont.classList.add("active");
+        });
+  
+        arrowBack.addEventListener("click", () => {
+            cont.classList.remove("active");
+        });
+    </script>
+    <script>
+        function toggle_visibility() {
+            const e = document.getElementById('feedback-main');
+            e.style.display = e.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

@@ -146,7 +146,7 @@
                                 <img src="images/user.jpg" alt="">
                             </div>
                             <div class="ingo">
-                                <h3><%= userName  %></h3>
+                                <a href="/Profile" class="profile"><h3><%= userName  %></h3></a>
                                 <small>15 Min ago : </small><a class="edit" href="#"><i class="uil uil-location-pin-alt"> Beach Opp, BSA College Rd, Manoharpura</i></a>
                             </div>
                         </div>
@@ -269,21 +269,15 @@
     </div>
     </main>
     <script>
-        
         console.log("java on");
-
         var map = L.map('map').setView([27.493585888098625, 77.67188101129034], 16);
         // Add OpenStreetMap tile 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
         }).addTo(map);
         var marker1 = L.marker([27.493585888098625, 77.67188101129034]).addTo(map);
-        
         marker1.bindTooltip("🌳🌳🌳").openPopup();
         marker1.bindPopup('Beach Opp, BSA College Rd, Manoharpura').openPopup();
-      
-        
-     
     </script>
     <script>
         function toggle_visibility() {
@@ -292,7 +286,7 @@
       e.style.display = 'none';
    else
       e.style.display = 'block';
-}
+    }
   </script>
 </body>
 </html>

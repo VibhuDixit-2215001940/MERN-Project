@@ -22,9 +22,13 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
         return res.render('home/login', { error: 'Incorrect password' });
     }
-
+    // Update last login time
+    user.lastLogin = new Date(); // Set current date and time
+    await user.save(); // Save the user with updated last login
+    
     // Save user session data
     req.session.userId = user._id;
+    req.session.userName = user.fname; // Save the user's first name in the session
     res.redirect('/YourPost');
 });
 
