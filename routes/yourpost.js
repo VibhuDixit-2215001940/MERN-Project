@@ -4,8 +4,6 @@ const User = require('../models/User');
 const multer = require('multer');
 const Post = require('../models/Post');
 const path = require('path');
-// const ensureAuthenticated = require('../middleware/auth'); // Ensure this path is correct
-
 //-------------------------------------------MIDDLEWARE--------------------------------
 function ensureAuthenticated(req, res, next) {// Middleware to ensure the user is authenticated
     if (req.session.userId) {
@@ -13,38 +11,21 @@ function ensureAuthenticated(req, res, next) {// Middleware to ensure the user i
     }
     res.redirect('/login'); // Redirect to login if not authenticated
 }
-//-------------------------------------------REDERING YOURPOST PAGE--------------------------------
-router.get('/YourPost', function(req, res) {
-    res.render('home/index');
-});
-// router.get('/Profile', ensureAuthenticated, async function(req, res) {
-//     const user = await User.findById(req.session.userId); // Use userId from session// Access the userId from session to find the user
-//     if (!user) {
-//         return res.status(404).send('User not found'); // Handle case if user is not found
-//     }
-//     req.session.userName = user.fname;
-//     res.render('YourPost/profile', { user });
-// });
+//-------------------------------------------REDERING PROFILE--------------------------------
 router.get('/Profile', async (req, res) => {
     try {
         const user = await User.findById(req.session.userId).lean(); // Use session user ID
         if (!user) {
             return res.status(404).send('User not found');
         }
-        
-        const posts = await Post.find({ userId: user._id }).lean(); // Fetch posts by user ID
-
-        // Attach posts to user
+        const posts = await Post.find({ userId: user._id }).lean(); 
         user.posts = posts;
-
-        // Render profile view and pass user with posts
         res.render('YourPost/profile', { user });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
     }
 });
-
 //------------------------------------------------EDIT PROFILE-------------------------------------------------------------------
 // GET route to render the edit form
 router.get('/Profile/edit', ensureAuthenticated, async function(req, res) {
@@ -113,7 +94,9 @@ router.post('/CreatePost', ensureAuthenticated, upload.single('image'), async (r
         res.status(500).send("An error occurred while saving the post");
     }
 });
-
-
+//----------------------------------------CERTIFICATE---------------------------------
+router.get('/Certificate', ensureAuthenticated,(req, res) => {
+    res.render('YourPost/certificate')
+})
 
 module.exports = router;

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/starability/2.3.1/starability-min.css">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
     <style>
@@ -37,9 +37,8 @@
             <div class="create">
                 <label class="btn btn-primary" for="cerat a post"> Organise</label>
                 <div class="profile-photo">
-                    <img src="images/users.jpg" alt="">
+                    <img src="<%= userImage ? userImage : 'images/user.jpg' %>" alt="Profile Picture">
                 </div>
-
             </div>
         </div>
     </nav>
@@ -74,7 +73,7 @@
         <div class="left">
             <a href="/Profile" class="profile">
                 <div class="profile-photo">
-                    <img src="images/user.jpg" alt="">
+                    <img src="<%= userImage ? userImage : 'images/user.jpg' %>" alt="Profile Picture">
                 </div>
                 <div class="handel">
                    <h4><%= userName  %><i class="uil-pen"></i></h4>
@@ -143,7 +142,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="images/user.jpg" alt="">
+                                <img src="<%= userImage ? userImage : 'images/user.jpg' %>" alt="Profile Picture">
                             </div>
                             <div class="ingo">
                                 <a href="/Profile" class="profile"><h3><%= userName  %></h3></a>
@@ -160,21 +159,21 @@
                     </div>
                     <div class="action-buttons">
                         <div class="interaction-buttons">
-                            <span>
+                            <span onclick="toggleLike(this)">
                                 <i class="uil uil-heart"></i>
                                 <small>2.5k</small>
                             </span>
-                            <span>
+                            <span onclick="showComments(this)">
                                 <i class="uil uil-comment"></i>
                                 <small>350</small>
                             </span>
-                            <span>
+                            <span onclick="sharePost(this)">
                                 <i class="uil uil-share-alt"></i>
                                 <small>100</small>
                             </span>
                         </div>
                         <div class="bookmark">
-                            <span>
+                            <span onclick="toggleBookmark(this)">
                                 <i class="uil uil-bookmark"></i>
                             </span>
                         </div>
@@ -203,7 +202,7 @@
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="images/user.jpg" alt="">
+                                <img src="<%= userImage ? userImage : 'images/user.jpg' %>" alt="Profile Picture">
                             </div>
                             <div class="ingo">
                                 <h3><%= userName  %></h3>
@@ -286,7 +285,7 @@
       e.style.display = 'none';
    else
       e.style.display = 'block';
-    }
+        }
   </script>
 </body>
 </html>

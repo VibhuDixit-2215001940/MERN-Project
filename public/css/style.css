@@ -648,6 +648,29 @@ input:focus,
 .feedback-button-blue:hover {
   color: #3498db;
 }
+/* Heart Icon Hover and Active Styles */
+.uil-heart {
+  color: #333; /* Default color */
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.uil-heart:hover {
+  transform: scale(1.3); /* Increase size on hover */
+  color: #ff4d4d; /* Lighter red */
+}
+
+.uil-heart.liked {
+  color: #ff3333; /* Red color when liked */
+  transform: scale(1.1); /* Slightly bigger when liked */
+  animation: pop 0.3s forwards; /* Animate when clicked */
+}
+
+/* Animation for "pop" effect */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.1); }
+}
 
 .feedback-ease {
   width: 0px;
@@ -674,4 +697,57 @@ input:focus,
     padding-left: 3%;
     padding-right: 3%;
   }
+}
+/* Attractive styles for action buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.interaction-buttons span {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.interaction-buttons span:hover {
+  transform: scale(1.1);
+  color: #ff4081; /* Attractive pink color for like and active state */
+}
+
+.interaction-buttons span i {
+  margin-right: 5px;
+}
+
+.interaction-buttons span .uil-heart.liked {
+  color: #ff4081;
+  animation: heartbeat 0.6s ease-in-out infinite alternate;
+}
+
+.interaction-buttons span .uil-bookmark.bookmarked {
+  color: #ffcc00;
+}
+
+@keyframes heartbeat {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(1.2);
+  }
+}
+
+.bookmark span {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.bookmark span:hover {
+  transform: scale(1.1);
+  color: #ffcc00; /* Color for bookmark */
 }

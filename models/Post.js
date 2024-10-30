@@ -1,3 +1,17 @@
+// // models/Post.js
+// const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+
+// const postSchema = new Schema({
+//     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user who created the post
+//     content: { type: String, required: true }, // Text content of the post
+//     createdAt: { type: Date, default: Date.now }, // Date of creation
+//     image: { type: String } // Path to an image if the post has one
+// });
+
+// module.exports = mongoose.model('Post', postSchema);
+
+
 // models/Post.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -6,7 +20,16 @@ const postSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user who created the post
     content: { type: String, required: true }, // Text content of the post
     createdAt: { type: Date, default: Date.now }, // Date of creation
-    image: { type: String } // Path to an image if the post has one
+    image: { type: String }, // Path to an image if the post has one
+    likes: { type: Number, default: 0 }, // Count of likes
+    comments: [
+        {
+            userId: { type: Schema.Types.ObjectId, ref: 'User' }, // Reference to the user who commented
+            comment: { type: String, required: true }, // Comment text
+            createdAt: { type: Date, default: Date.now } // Date of the comment
+        }
+    ],
+    shares: { type: Number, default: 0 } // Count of shares
 });
 
 module.exports = mongoose.model('Post', postSchema);

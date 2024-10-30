@@ -2,6 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const Post = require('../models/Post');
 const router = express.Router();
 
 // GET login page
@@ -29,6 +30,7 @@ router.post('/login', async (req, res) => {
     // Save user session data
     req.session.userId = user._id;
     req.session.userName = user.fname; // Save the user's first name in the session
+    req.session.userImage = user.image; // Save the user's profile image URL in the session
     res.redirect('/YourPost');
 });
 
@@ -36,6 +38,7 @@ router.post('/login', async (req, res) => {
 function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
         res.locals.userName = req.session.userName; // Make userName available in views
+        res.locals.userImage = req.session.userImage; // Make userImage available in views
         return next();
     }
     res.redirect('/login');
