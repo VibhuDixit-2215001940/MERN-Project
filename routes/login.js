@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const router = express.Router();
+const Complain = require('../models/Complain');
 
 // GET login page
 router.get('/login', (req, res) => {
@@ -49,6 +50,44 @@ function ensureAuthenticated(req, res, next) {
 router.get('/YourPost', ensureAuthenticated, (req, res) => {
     res.render('YourPost/index'); // Render the /YourPost page after login
 });
+// POST /YourPost for submitting complaints
+router.post('/YourPost', async (req, res) => {
+    try {
+        const { wastetype, comment, phoneno, email, address } = req.body;
+
+        // Check if required fields are provided
+        // if (!wastetype || !phoneno || !email || !address) {
+        //     return res.status(400).send('All fields are required.'); // 400 Bad Request
+        // }
+
+        // Create a new complaint
+        const newComplain = new Complain({
+            wastetype,
+            comment,
+            phoneno,
+            email,
+            address,
+            image: req.file ? req.file.path : null // Handle file upload if applicable
+        });
+
+        await newComplain.save();
+
+        // Increment the complaints count for the user
+        await User.findByIdAndUpdate(req.session.userId, { $inc: { complaintsCount: 1 } });
+
+        // Redirect or send response
+        res.redirect('/success'); // Change to your desired route
+    } catch (error) {
+        console.error(error);
+        // Handle specific validation errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).send('Validation Error: ' + error.message);
+        }
+        // General server error
+        res.status(500).send('Server Error');
+    }
+});
+
 
 // POST register handler
 router.post('/register', async (req, res) => {

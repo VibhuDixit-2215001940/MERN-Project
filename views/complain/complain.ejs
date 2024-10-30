@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Swipe2Clean</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.jpg">
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-8 text-center">
+                    <h2 class="heading-section">Complain ID: GHI-78901234</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="wrapper">
+                        <div class="row mb-5">
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-user"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>User: <%= user.username %></span><br> Male, 19</p>
+                                    </div>
+                                    <a href="/Profile/edit" class="btn btn-link">Update User Details!</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-envelope"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Email:</span><br><%= user.email %></p>
+                                    </div>
+                                    <a href="/Profile/edit" class="btn btn-link">Update Email!</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-clipboard"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Total no of complains:</span><br><%= user.complaintsCount %></p>
+                                    </div>
+                                    <a href="/CreatePost" class="btn btn-link">Update Complains!</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-id-card-o"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Points Earned:</span><br><%= user.pointsEarned %></p>
+                                    </div>
+                                    <a href="/Wallet" class="btn btn-link">Redeem!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md-7">
+                                <div class="contact-wrap w-100 p-md-5 p-4 border border-secondary">
+                                    <h3 class="mb-4">Enter Details</h3>
+                                    <form method="POST" enctype="multipart/form-data" id="contactForm" name="contactForm" class="contactForm" action="/YourPost">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="wastetype">Select Waste Type:*</label>
+                                                <select name="wastetype" class="form-control">
+                                                    <option value="">Select the issue</option>
+                                                    <option value="Plastic waste">Plastic waste</option>
+                                                    <option value="Sewage Problem">Sewage Problem</option>
+                                                    <option value="Garbage">Garbage</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="comment">Additional Details</label>
+                                                <textarea name="comment" class="form-control" placeholder="Enter short summary of issue (max 200 characters)." maxlength="200"></textarea>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="phoneno">Phone No:</label>
+                                                <input type="number" class="form-control" placeholder="Phone No" name="phoneno">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control" name="email">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="address">Address:</label>
+                                                <input type="text" class="form-control" name="address">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="image">Upload Picture</label>
+                                                <input type="file" class="form-control-file" onchange="readURL(this);" accept="image/*" name="garbage" />
+                                                <img id="issue_img" style="max-width: 100%; height: auto; display: none;" />
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="terms" value="check" id="terms" class="form-check-input" />
+                                                    <label class="form-check-label" for="terms">I have read and agree to the <a href="#" target="">Terms and Conditions</a></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <input type="submit" value="Submit" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-stretch">
+                                <div class="container">
+                                    <div id="map" style="width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('issue_img');
+                    img.src = e.target.result;
+                    img.style.display = 'block'; // Show the image
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        // Uncomment and adapt this script to initialize your map
+        // var map = L.map('map').setView([27.482269461838406, 77.66629772399595], 14);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        // }).addTo(map);
+    </script>
+</body>
+</html>

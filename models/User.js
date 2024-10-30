@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema({
     lastLogin: { type: Date }, 
     image: { type: String },
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    complaintsCount: { type: Number, default: 0 }, 
+    pointsEarned: { type: Number, default: 0 }, 
+    eRupees: { type: Number, default: 0 } 
 });
 
 module.exports = mongoose.model('User', userSchema);

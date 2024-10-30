@@ -28,9 +28,11 @@
                 </a>
             </li>
             <div class="create">
-                <label class="btn btn-primary" for="cerat a post"> Organise</label>
+                <a href="/CreatePost">
+                    <label class="btn btn-primary" for="create-a-post">Organise</label>
+                </a>
                 <div class="profile-photo">
-                    <img src="images/users.jpg" alt="">
+                    <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
                 </div>
 
             </div>
@@ -67,11 +69,11 @@
         <div class="left"> 
             <a href="/Profile" class="profile"> 
                 <div class="profile-photo">
-                    <img src="images/user.jpg" alt="">
+                    <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
                 </div>
                 <div class="handel">
-                    <h4>user <i class="uil-pen"></i></h4>
-                    <p class="text-muted">bio...      </p>
+                    <h4><%= user.username %><i class="uil-pen"></i></h4>
+                    <p class="text-muted">bio...</p>
                 </div>
             </a>
             <!-- Side baar -->

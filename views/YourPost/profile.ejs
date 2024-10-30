@@ -26,8 +26,8 @@
                 </a>
             </li>
             <div class="create">
-                <a href="/CreatePost">
-                    <label class="btn btn-primary" for="create-a-post">Organise</label>
+                <a href="#Posts">
+                    <label class="btn btn-primary" for="create-a-post">Posts</label>
                 </a>
                 <div class="profile-photo">
                     <img src="<%= user.image ? user.image : 'images/user.jpg' %>" alt="lis">
@@ -173,7 +173,7 @@
                 </div>
         </div>
         <!-- Right -->
-        <div class="user-posts text-center">
+        <div class="user-posts text-center" id="Posts">
             <h3>Your Posts</h3>
             <div class="row justify-content-center">
                 <% if (user.posts && user.posts.length > 0) { %>
@@ -201,6 +201,42 @@
         
     </div>
     </main>
+    <script>
+        document.getElementById('sec').addEventListener('input', async function () {
+    const searchQuery = this.value;
+
+    if (searchQuery.length > 0) {
+        const response = await fetch(`/posts/search?q=${encodeURIComponent(searchQuery)}`);
+        const posts = await response.json();
+
+        // Select the container for displaying posts
+        const postsContainer = document.querySelector('.user-posts .row');
+        postsContainer.innerHTML = ''; // Clear existing posts
+
+        if (posts.length > 0) {
+            posts.forEach(post => {
+                const postElement = `
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h4 class="mb-0"><%= user.fname %></h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">${post.content}</p>
+                                ${post.image ? `<img src="${post.image}" alt="img" style="height: 100px; width: 100px;">` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                postsContainer.innerHTML += postElement;
+            });
+        } else {
+            postsContainer.innerHTML = '<p>No posts found matching the search.</p>';
+        }
+    }
+});
+
+    </script>
     <script>
         function toggle_visibility() {
    var e = document.getElementById('feedback-main');

@@ -8,6 +8,11 @@ const session = require('express-session');
 const loginRoutes = require('./routes/login');
 const YourPostRoutes = require('./routes/yourpost');
 const eventsRoutes = require('./routes/events');
+const walletRoutes = require('./routes/wallet');
+const complainRoutes = require('./routes/complain');
+const leaderboardRoutes = require('./routes/leaderboard');
+const postRoutes = require('./routes/search');
+const businessRoutes = require('./routes/business');
 
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
@@ -28,11 +33,19 @@ app.use(session({
     saveUninitialized: false,
 }));
 
+app.use('/posts', postRoutes);
 app.use('/home', loginRoutes);
 app.use(loginRoutes);
 app.use(YourPostRoutes);
 app.use(eventsRoutes);
 app.use('/events', eventsRoutes);
+app.use(walletRoutes);
+app.use('/wallet', walletRoutes);
+app.use(complainRoutes)
+app.use('/compalin', complainRoutes);
+app.use(leaderboardRoutes)
+app.use('/leaderboard', leaderboardRoutes)
+app.use(businessRoutes)
 app.get('/', (req, res) => {
     res.render('home/index');
 });
