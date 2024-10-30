@@ -13,6 +13,7 @@ const complainRoutes = require('./routes/complain');
 const leaderboardRoutes = require('./routes/leaderboard');
 const postRoutes = require('./routes/search');
 const businessRoutes = require('./routes/business');
+const adminRoutes = require('./routes/admin');
 
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
@@ -46,6 +47,7 @@ app.use('/compalin', complainRoutes);
 app.use(leaderboardRoutes)
 app.use('/leaderboard', leaderboardRoutes)
 app.use(businessRoutes)
+app.use(adminRoutes)
 app.get('/', (req, res) => {
     res.render('home/index');
 });

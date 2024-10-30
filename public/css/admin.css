@@ -1,0 +1,393 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Raleway', sans-serif;
+}
+
+p,
+a {
+    font-family: 'Roboto', sans-serif;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1330px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.clear {
+    clear: both;
+}
+
+.active {
+    width: 40% !important;
+    z-index: 20 !important;
+}
+
+.menu-hide {
+    display: inline-block !important;
+}
+
+/*sidebar css*/
+
+section#sidebar {
+    width: 20%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-image: linear-gradient(rgba(179, 230, 122, 0.9),
+            rgba(57, 255, 133, 0.9)), url('../images/01.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    z-index: 20;
+    transition: all 1s ease;
+}
+
+.sidebar-menu {
+    margin-top: 50px;
+}
+
+.sidebar-menu ul li a {
+    color: #fff;
+    display: block;
+    padding: 10px 40px;
+}
+
+.sidebar-menu ul li span {
+    padding-left: 10px;
+}
+
+.sidebar-menu ul li {
+    transition: all 0.5s ease;
+}
+
+.sidebar-menu ul li:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-brand {
+    padding: 50px 40px;
+}
+
+
+/*main content css*/
+
+section#main-content {
+    width: 80%;
+    float: right;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #ccc;
+    width: 100%;
+    position: fixed;
+    z-index: 10;	
+}
+
+.header-left {
+    float: left;
+    width: 33%;
+    padding: 20px;
+}
+
+.header-left h2 {
+    cursor: pointer;
+}
+
+.header-left.header-profile img {
+    width: 10%;
+    float: left;
+    padding-right: 10px;
+}
+
+.card {
+    float: left;
+    width: 21%;
+    background: linear-gradient(45deg, rgba(179, 230, 122) 0%, rgba(57, 255, 133) 100%);
+    box-shadow: 0 6px 20px 0 rgb(244 143 177 / 50%);
+    color: #fff;
+    margin-top: 120px;
+    margin-left: 2%;
+    padding: 25px;
+    margin-right: 2%;
+}
+
+h2.cus-num {
+    position: relative;
+}
+
+td:hover{
+    cursor: pointer;
+    background-color: #ccc;
+  }
+h2.cus-comp:after {
+    position: absolute;
+    content: "\f0c5";
+    font-family: "FONTAWESOME";
+    right: 0;
+}
+
+h2.cus-ord:after {
+    position: absolute;
+    content: "\f218";
+    font-family: "FONTAWESOME";
+    right: 0;
+}
+h2.cus-bid:after {
+    position: absolute;
+    content: "\f156";
+    font-family: "FONTAWESOME";
+    right: 0;
+}
+h2.cus-eve:after {
+    position: absolute;
+    content: "\f11e";
+    font-family: "FONTAWESOME";
+    right: 0;
+}
+
+.header-left.header-profile p {
+    color: #bbb;
+}
+
+.search {
+    border-radius: 20px;
+    padding: 8px 12px;
+    border: 2px solid #bbb;
+    transition: width 1s ease;
+    width: 50%;
+}
+
+.search:focus {
+    border: 2px solid  rgb(127, 241, 82);
+    border-radius: 20px;
+    outline: none;
+    width: 95%;
+}
+
+i.fa.fa-search {
+    background-color:  rgba(179, 230, 122);
+    color: #fff;
+    width: 33px;
+    height: 36px;
+    line-height: 35px;
+    text-align: center;
+    margin-left: -35px;
+    border-top-right-radius: 50px 50px;
+    border-bottom-right-radius: 50px 50px;
+}
+
+.pro-table {
+    float: left;
+    width: 65%;
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #bbb;
+    padding: 15px;
+}
+
+.pro-cus {
+    float: right;
+    width: 30%;
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #bbb;
+    padding: 15px;
+}
+
+.content-pro-par {
+    margin: 6% 2% 0 2%;
+}
+
+.pro-table {
+    float: left;
+    width: 68%;
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #bbb;
+    padding: 15px;
+}
+
+.pro-cus {
+    float: right;
+    width: 30%;
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #bbb;
+    padding: 15px;
+}
+
+table th {
+    text-align: left;
+}
+
+table td {
+    padding: 8px 0px;
+}
+
+table td {
+    padding: 20px 0px 0px 0px;
+}
+
+span.rev-span {
+    width: 10px;
+    height: 10px;
+    background-color: #02a122;
+    display: inline-block;
+    border-radius: 10px;
+    margin-right: 8px;
+}
+
+span.progress-span {
+    width: 10px;
+    height: 10px;
+    background-color: #523a71;
+    display: inline-block;
+    border-radius: 10px;
+    margin-right: 8px;
+}
+
+span.pending-span {
+    width: 10px;
+    height: 10px;
+    background-color: #c2420a;
+    display: inline-block;
+    border-radius: 10px;
+    margin-right: 8px;
+}
+
+.see-all button {
+    background-color: #6dd64d;
+    color: #fff;
+    border: none;
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.rec-pro-h {
+    float: left;
+}
+
+.see-all {
+    float: right;
+}
+
+.recent-project {
+    margin-bottom: 20px;
+}
+
+img.table-img {
+    width: 35px;
+}
+
+td.cnt-info-td i {
+    color: #fd5c62;
+    padding-right: 8px;
+}
+
+
+@media screen and (max-width :768px) {
+
+    section#sidebar {
+        width: 16%;
+    }
+
+    section#main-content {
+        width: 84%;
+    }
+
+    .sidebar-menu ul li a {
+        padding: 10px 22px;
+    }
+
+    .sidebar-brand span {
+        display: none;
+    }
+
+	.sidebar-menu li span {
+        display: none;
+    }
+
+    .sidebar-brand h2 {
+        font-size: 14px;
+    }
+
+    .sidebar-brand {
+        padding: 20px 20px 0px 20px;
+    }
+
+    .card {
+        width: 100%;
+        float: none;
+        margin: 0 auto 20px auto;
+        padding: 10px 20px;
+    }
+
+    .main-content-info {
+        margin-top: 130px;
+    }
+
+    h2.cus-num:after {
+        top: 10px;
+    }
+
+    .pro-table {
+        float: none;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .pro-cus {
+        float: none;
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    table td {
+        font-size: 14px;
+    }
+
+    .rec-pro-h h2 {
+        font-size: 18px;
+    }
+
+    .see-all button {
+        width: 50px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 11px;
+    }
+
+
+    .header-left.header-serach {
+        display: none;
+    }
+
+    .header-left {
+        float: left;
+        width: 50%;
+    }
+
+}
