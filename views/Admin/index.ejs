@@ -11,6 +11,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>/* Modal Background */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        }
+        
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+        }
+        
+        /* Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        </style>
 </head>
 <body>
     <section id="sidebar">
@@ -19,15 +58,32 @@
         </div>
         <div class="sidebar-menu">
             <ul>
-                <li><a href="#"><i class="fa fa-desktop"></i> <span>Control</span></a></li>
+                <li><a href="/Admin"><i class="fa fa-desktop"></i> <span>Control</span></a></li>
                 <li><a href="#"><i class="fa fa-users"></i> <span>Workers</span></a></li>
                 <li><a href="#"><i class="fa fa-files-o"></i> <span>Complaints</span></a></li>
                 <li><a href="/Event"><i class="fa fa-flag-checkered"></i> <span>Events</span></a></li>
                 <li><a href="#"><i class="fa fa-briefcase"></i> <span>Clients</span></a></li>
                 <li><a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
                 <li><a href="#"><i class="fa fa-inr"></i> <span>Bids</span></a></li>
-                <li><a href="#"><i class="fa fa-map"></i> <span>District Map</span></a></li>
-                <li><a href="#"><i class="fa fa-book"></i> <span>Documents</span></a></li>
+                <!-- Bids Modal Popup -->
+<div id="bidsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeBidsModal()">&times;</span>
+        <h2>5</h2> <!-- Displaying number 5 -->
+    </div>
+</div>
+
+                <!-- District Map Button in Sidebar Menu -->
+                <li><a href="#" onclick="openMapModal()"><i class="fa fa-map"></i> <span>District Map</span></a></li>
+                <!-- Modal for Map Popup -->
+                <div id="mapModal" class="modal">
+                    <div class="modal-content">
+                    <span class="close" onclick="closeMapModal()">&times;</span>
+                    <h2>Mathura City Map</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109196.33829439921!2d77.63521453854144!3d27.492413049122758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3974773ef3e90ecf%3A0x95d398ef68aa72c5!2sMathura%2C%20Uttar%20Pradesh%2C%20India!5e0!3m2!1sen!2sus!4v1615553247316!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <li><a href="https://swachhbharatmission.gov.in/SBMGUPLOAD/writereaddata/Portal/Marquee/File/d96f153d-a_SBM_G__Ph-2_Guidelines_-_Hindi.pdf" target="_blank"><i class="fa fa-book"></i> <span>Documents</span></a></li>
                 <li><a href="/AdminLogout"><i class="fa fa-sign-out"></i> <span>Log out</span></a></li>
             </ul>
         </div>
@@ -41,11 +97,11 @@
                 </h2>
             </div>
             <div class="header-left header-serach">
-                <div class="serach-par">
-                    <input class="search" type="text" placeholder="Search">
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
+                <form action="/Admin" method="GET" class="serach-par"> <!-- Form added -->
+                    <input class="search" type="text" name="search" placeholder="Search by location">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>            
             <div class="header-left header-profile">
                 <img src="images/user.png" class="img-responsive" />
                 <h3><%= user.name %></h3>
@@ -145,10 +201,20 @@
         </div>
     </Section>
     <div class="clear"></div>
-
-
-
-
+<script>
+    function openMapModal() {
+        document.getElementById('mapModal').style.display = 'block';
+    }
+    function closeMapModal() {
+        document.getElementById('mapModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+        const modal = document.getElementById('mapModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    </script>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/external.js"></script>
 </body>

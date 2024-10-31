@@ -45,19 +45,20 @@ router.get('/Admin', ensureAuthenticated, async (req, res) => {
         const complainCount = await Complain.countDocuments();
         const businessCount = await BusinessUser.countDocuments();
         const businessUsers = await BusinessUser.find();
-        const complaints = await Complain.find();
+        const searchQuery = req.query.search || ""; 
+        const complaints = await Complain.find({
+            address: { $regex: searchQuery, $options: 'i' }
+        });
         const complaintDetails = complaints.map(complaint => {
-            const timeElapsed = Date.now() - complaint.createdAt; // Time elapsed in milliseconds
+            const timeElapsed = Date.now() - complaint.createdAt; 
             let status;
-
-            if (timeElapsed < 12 * 60 * 60 * 1000) { // Less than 12 hours
+            if (timeElapsed < 12 * 60 * 60 * 1000) { 
                 status = "Ongoing";
-            } else if (timeElapsed < 24 * 60 * 60 * 1000) { // More than 12 hours but less than 24
+            } else if (timeElapsed < 24 * 60 * 60 * 1000) { 
                 status = "Action Taken";
             } else { // More than 24 hours
                 status = "Action Pending";
             }
-
             return {
                 id: generateShortId(),
                 wasteType: complaint.wastetype || "Not specified",
