@@ -5,13 +5,12 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const router = express.Router();
 const Complain = require('../models/Complain');
+const multer = require('multer');
+const path = require('path');
 
-// GET login page
 router.get('/login', (req, res) => {
     res.render('home/login');
 });
-
-// POST login handler
 router.post('/login', async (req, res) => {
     const { username, userpass } = req.body;
     const user = await User.findOne({ username: username });
@@ -24,84 +23,98 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
         return res.render('home/login', { error: 'Incorrect password' });
     }
-    // Update last login time
-    user.lastLogin = new Date(); // Set current date and time
-    await user.save(); // Save the user with updated last login
-    
-    // Save user session data
+    user.lastLogin = new Date(); 
+    await user.save(); 
     req.session.userId = user._id;
-    req.session.userName = user.fname; // Save the user's first name in the session
-    req.session.userImage = user.image; // Save the user's profile image URL in the session
+    req.session.userName = user.fname; 
+    req.session.userImage = user.image;
     res.redirect('/YourPost');
 });
 
-// Middleware to check if the user is logged in
 function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
-        res.locals.userName = req.session.userName; // Make userName available in views
-        res.locals.userImage = req.session.userImage; // Make userImage available in views
+        res.locals.userName = req.session.userName; 
+        res.locals.userImage = req.session.userImage; 
         return next();
     }
     res.redirect('/login');
 }
-
-
-// Use the middleware in the /YourPost route
 router.get('/YourPost', ensureAuthenticated, (req, res) => {
-    res.render('YourPost/index'); // Render the /YourPost page after login
+    res.render('YourPost/index');
 });
-// POST /YourPost for submitting complaints
-router.post('/YourPost', async (req, res) => {
-    try {
-        const { wastetype, comment, phoneno, email, address } = req.body;
-
-        // Check if required fields are provided
-        // if (!wastetype || !phoneno || !email || !address) {
-        //     return res.status(400).send('All fields are required.'); // 400 Bad Request
-        // }
-
-        // Create a new complaint
-        const newComplain = new Complain({
-            wastetype,
-            comment,
-            phoneno,
-            email,
-            address,
-            image: req.file ? req.file.path : null // Handle file upload if applicable
-        });
-
-        await newComplain.save();
-
-        // Increment the complaints count for the user
-        await User.findByIdAndUpdate(req.session.userId, { $inc: { complaintsCount: 1 } });
-
-        // Redirect or send response
-        res.redirect('/success'); // Change to your desired route
-    } catch (error) {
-        console.error(error);
-        // Handle specific validation errors
-        if (error.name === 'ValidationError') {
-            return res.status(400).send('Validation Error: ' + error.message);
-        }
-        // General server error
-        res.status(500).send('Server Error');
+// Set storage engine
+const storage = multer.diskStorage({
+    destination: './uploads/', // Path to store uploaded files
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Rename file
     }
 });
 
+// Initialize upload
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 }, // Limit file size (1MB in this case)
+    fileFilter: function(req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('garbage'); // 'garbage' is the field name in your form
 
-// POST register handler
+// Check file type
+function checkFileType(file, cb) {
+    // Allowed extensions
+    const filetypes = /jpeg|jpg|png|gif/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Images Only!');
+    }
+}
+
+// Your existing POST route
+router.post('/YourPost', upload, async (req, res) => {
+    console.log('Request Body:', req.body); // Log the request body
+    console.log('Uploaded File:', req.file); // Log the uploaded file information
+
+    const { wastetype, comment, phoneno, email, address } = req.body;
+
+    // Basic validation
+    if (!wastetype || !phoneno || !email || !address) {
+        return res.render('complain/complain.ejs', { error: 'Please fill in all required fields.' });
+    }
+
+    const newComplain = new Complain({
+        wastetype,
+        comment,
+        phoneno,
+        email,
+        address,
+        image: req.file ? req.file.path : null
+    });
+
+    try {
+        await newComplain.save();
+        await User.findByIdAndUpdate(req.session.userId, { $inc: { complaintsCount: 1 } });
+        res.redirect('/YourPost');
+    } catch (error) {
+        console.error('Error saving complaint:', error);
+        res.render('complain/complain.ejs', { error: 'Failed to submit the complaint. Please try again later.' });
+    }
+});
+
+module.exports = router;
+
 router.post('/register', async (req, res) => {
     const { username, uemail, fname, lname, userpass, re_enter } = req.body;
-
     if (userpass !== re_enter) {
         return res.render('home/login', { error: "Passwords do not match" });
     }
-
     const existingUser = await User.findOne({ username: username });
     if (existingUser) {
         return res.render('home/login', { error: 'Username already exists' });
     }
-
     const hashedPassword = await bcrypt.hash(userpass, 10);
     const newUser = new User({
         username,
@@ -110,9 +123,7 @@ router.post('/register', async (req, res) => {
         lname,
         password: hashedPassword,
     });
-
     await newUser.save();
     res.redirect('/login');
 });
-
 module.exports = router;

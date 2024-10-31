@@ -22,7 +22,8 @@ const BusinessUserSchema = new mongoose.Schema({
   profit: {
     type: Number,
     default: 0 // Initialize with 0
-  }
+  },
+  lastLogin: { type: Date, default: Date.now },
 });
 
 // Hash password before saving

@@ -35,31 +35,4 @@ const upload = multer({
     storage: storage,
     limits: {fileSize: 1 * 1024 * 1024} // Limit file size to 1MB
 }).single('garbage');
-
-// POST route for submitting complaints
-router.post('/YourPost', upload, async (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded');
-    }
-
-    try {
-        const complain = new Complain({
-            user: req.session.userId,
-            wastetype: req.body.wastetype,
-            comment: req.body.comment,
-            phoneno: req.body.phoneno,
-            email: req.body.email,
-            address: req.body.address,
-            image: req.file.path
-        });
-
-        await complain.save();
-        res.redirect('/YourPost');
-    } catch (err) {
-        console.error('Error while saving complain:', err);
-        res.status(500).send('Server Error');
-    }
-});
-
-
 module.exports = router;

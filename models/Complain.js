@@ -30,6 +30,10 @@ const complainSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now 
     }
 });
 

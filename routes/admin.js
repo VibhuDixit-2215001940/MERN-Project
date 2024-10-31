@@ -5,6 +5,11 @@ const Event = require('../models/Event');
 const User = require('../models/User'); 
 const Complain = require('../models/Complain'); 
 const BusinessUser = require('../models/BusinessUser');
+const { v4: uuidv4 } = require('uuid');
+
+function generateShortId() {
+    return uuidv4().split('-').join('').slice(0, 8); // Take first 8 characters of the UUID without dashes
+}
 
 router.use(session({
     secret: 'yourSecretKey',
@@ -39,6 +44,27 @@ router.get('/Admin', ensureAuthenticated, async (req, res) => {
         const userCount = await User.countDocuments();
         const complainCount = await Complain.countDocuments();
         const businessCount = await BusinessUser.countDocuments();
+        const businessUsers = await BusinessUser.find();
+        const complaints = await Complain.find();
+        const complaintDetails = complaints.map(complaint => {
+            const timeElapsed = Date.now() - complaint.createdAt; // Time elapsed in milliseconds
+            let status;
+
+            if (timeElapsed < 12 * 60 * 60 * 1000) { // Less than 12 hours
+                status = "Ongoing";
+            } else if (timeElapsed < 24 * 60 * 60 * 1000) { // More than 12 hours but less than 24
+                status = "Action Taken";
+            } else { // More than 24 hours
+                status = "Action Pending";
+            }
+
+            return {
+                id: generateShortId(),
+                wasteType: complaint.wastetype || "Not specified",
+                location: (complaint.address || "Not specified").slice(0, 40),
+                status: status
+            };
+        });
         const userData = {
             name: req.session.userId,
             lastLogin: new Date().toLocaleString(),
@@ -48,7 +74,10 @@ router.get('/Admin', ensureAuthenticated, async (req, res) => {
             activeusers: userCount,
             activeBiddings: businessCount, 
             activeEvents: eventCount, 
-            user: userData
+            user: userData,
+            businessUsers: businessUsers,
+            complaints: complaintDetails,
+            generateShortId: generateShortId
         });
     } catch (error) {
         console.error(error);
