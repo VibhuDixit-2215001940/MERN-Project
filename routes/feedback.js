@@ -29,6 +29,16 @@ router.post(
       }
     }
   );
-  
+// routes/feedback.js
+router.get('/api/feedback', async (req, res) => {
+  try {
+      const feedbacks = await Feedback.find(); // Fetch all feedback from the database
+      res.json(feedbacks);
+  } catch (error) {
+      console.error('Error fetching feedback:', error);
+      res.status(500).json({ message: 'Error fetching feedback.' });
+  }
+});
+
 
 module.exports = router;

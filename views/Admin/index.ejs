@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Admin Dashboard</title>
     <meta charset="utf-8" />
@@ -50,6 +49,29 @@
             cursor: pointer;
         }
         </style>
+        <style>
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+            
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 50%; /* Could be more or less, depending on screen size */
+                color: #000;
+            }
+            </style>
 </head>
 <body>
     <section id="sidebar">
@@ -60,18 +82,24 @@
             <ul>
                 <li><a href="/Admin"><i class="fa fa-desktop"></i> <span>Control</span></a></li>
                 <li><a href="https://qrcodeeeeeee.netlify.app/" target="_blank"><i class="fa fa-users"></i> <span>Generate</span></a></li>
-                <li><a href="#"><i class="fa fa-files-o"></i> <span>Complaints</span></a></li>
-                <li><a href="/Event"><i class="fa fa-flag-checkered"></i> <span>Events</span></a></li>
+                <li><a href="#" onclick="openFeedbackModal()"><i class="fa fa-files-o"></i> <span>Feedback</span></a></li>
+                <li><a href="#"><i class="fa fa-flag-checkered"></i> <span>Events</span></a></li>
                 <li><a href="#"><i class="fa fa-briefcase"></i> <span>Clients</span></a></li>
                 <li><a href="#"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
-                <li><a href="#"><i class="fa fa-inr"></i> <span>Bids</span></a></li>
-                <!-- Bids Modal Popup -->
-<div id="bidsModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeBidsModal()">&times;</span>
-        <h2>5</h2> <!-- Displaying number 5 -->
-    </div>
-</div>
+                <li><a href="#" onclick="openBidsModal()"><i class="fa fa-inr"></i> <span>Bids</span></a></li>
+                <div id="bidsModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeBidsModal()">&times;</span>
+                        <h2>5</h2> <!-- Displaying number 5 -->
+                    </div>
+                </div>
+                <div id="feedbackModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeFeedbackModal()">&times;</span>
+                        <h2>Feedback List</h2>
+                        <div id="feedbackList"></div>
+                    </div>
+                </div>
 
                 <!-- District Map Button in Sidebar Menu -->
                 <li><a href="#" onclick="openMapModal()"><i class="fa fa-map"></i> <span>District Map</span></a></li>
@@ -201,6 +229,70 @@
         </div>
     </Section>
     <div class="clear"></div>
+    <script>
+        function openBidsModal() {
+    const bidsModal = document.getElementById('bidsModal');
+    bidsModal.style.display = 'block'; // Show the Bids modal
+}
+
+function closeBidsModal() {
+    const bidsModal = document.getElementById('bidsModal');
+    bidsModal.style.display = 'none'; // Hide the Bids modal
+}
+
+        window.onclick = function(event) {
+    const bidsModal = document.getElementById('bidsModal');
+    if (event.target == bidsModal) {
+        closeBidsModal();
+    }
+
+    const feedbackModal = document.getElementById('feedbackModal');
+    if (event.target == feedbackModal) {
+        closeFeedbackModal();
+    }
+
+    const mapModal = document.getElementById('mapModal');
+    if (event.target == mapModal) {
+        closeMapModal();
+    }
+}
+
+    </script>
+    <script>
+        async function openFeedbackModal() {
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackList = document.getElementById('feedbackList');
+
+    try {
+        const response = await fetch('/api/feedback'); // Make sure the endpoint is correct
+        const feedbacks = await response.json();
+
+        feedbackList.innerHTML = ''; // Clear previous feedback
+        feedbacks.forEach(feedback => {
+            const feedbackItem = document.createElement('div');
+            feedbackItem.innerHTML = `<strong>${feedback.userr} (${feedback.uemail})</strong>: ${feedback.ucomment}`;
+            feedbackList.appendChild(feedbackItem);
+        });
+
+        feedbackModal.style.display = 'block'; // Show the modal
+    } catch (error) {
+        console.error('Error fetching feedback:', error);
+    }
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'none'; // Hide the modal
+}
+
+// Close the modal when the user clicks anywhere outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('feedbackModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+    </script>
 <script>
     function openMapModal() {
         document.getElementById('mapModal').style.display = 'block';
