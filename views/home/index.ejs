@@ -26,33 +26,28 @@
     </div>
   </header>
 <div class="wrapper" >
-    <form method="post">
+  <button id="popup" class="feedback-button" onclick="toggle_visibility()" name="Feedback">Feedback</button>
         <div id="feedback-main">
-            <div id="feedback-div">
-              <form action="" method="post" class="form" id="feedback-form1" name="form1" enctype="multipart/form-data">
+          <div id="feedback-div">
+            <form action="/submit-feedback" method="post" class="form" id="feedback-form1" name="form1" enctype="multipart/form-data">
                 <p class="name">
-                  <input name="userr" type="name" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" required placeholder="Name" id="feedback-name" />
+                  <input name="userr" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" required placeholder="Name" id="feedback-name" />
                 </p>
-          
                 <p class="email">
                   <input name="uemail" type="email" class="validate[required,custom[email]] feedback-input" id="feedback-email" placeholder="Email" required />
                 </p>
-          
                 <p class="text">
-                  <textarea name="ucomment" type="comment" class="validate[required,length[6,300]] feedback-input" id="feedback-comment" required placeholder="Hey, I really love the site but I believe that you could incorporate some ..... and also get rid of the ...... on the section."></textarea>
+                  <textarea name="ucomment" class="validate[required,length[6,300]] feedback-input" id="feedback-comment" required placeholder="Hey, I really love the site but I believe that you could incorporate some ... and also get rid of the ... on the section."></textarea>
                 </p>
                 <div class="feedback-submit">
                   <input type="submit" value="SEND" id="feedback-button-blue" />
-                  <div class="feedback-ease"></div>
                 </div>
-              </form>
-            </div>
-          </div>
-    </form>
+            </form>
+        </div>
+      </div>
     
-      <button id="popup" class="feedback-button" onclick="toggle_visibility()" name="Feedback">Feedback</button>
     <div class="hero-section" id="home">
-        <div class="absolute faded-text">Jan Dhan Warriors</div>
+        <div class="absolute faded-text">INDIA  &nbsp; º &nbsp;    भारत</div>
 
         <div class="hero-section-left">
             <div class="hero-section-heading " >स्वच्छता सर्वोपरी</div>
@@ -304,6 +299,39 @@ else
 e.style.display = 'block';
 }
 </script>
+<script>
+  document.getElementById('feedback-form1').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('/submit-feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message); // "Feedback submitted successfully!"
+            e.target.reset(); // Clear form on success
+        } else {
+            alert(result.message || 'Error submitting feedback.'); // Show error message
+            console.error(result.errors || 'Unknown error');
+        }
+    } catch (error) {
+        console.error('Request failed:', error);
+        alert('Error submitting feedback. Please try again later.');
+    }
+});
+
+  </script>
+  
     <script>
       const scriptURL = 'https://script.google.com/macros/s/AKfycbxBqQd2m4ea_XLp2zM1fWuOCpWPkZ9wxFirITjQWMuhC1zFXb4Lvu7gGSAIcOkc0URZKA/exec'
       const form = document.forms['submit-to-google-sheet']

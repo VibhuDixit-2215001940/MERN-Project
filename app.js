@@ -14,7 +14,10 @@ const leaderboardRoutes = require('./routes/leaderboard');
 const postRoutes = require('./routes/search');
 const businessRoutes = require('./routes/business');
 const adminRoutes = require('./routes/admin');
-
+const feedbackRoutes = require('./routes/feedback');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+app.use(cors());
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -22,6 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/swipe2clean', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
@@ -48,6 +53,8 @@ app.use(leaderboardRoutes)
 app.use('/leaderboard', leaderboardRoutes)
 app.use(businessRoutes)
 app.use(adminRoutes)
+app.use(feedbackRoutes)
+
 app.get('/', (req, res) => {
     res.render('home/index');
 });
