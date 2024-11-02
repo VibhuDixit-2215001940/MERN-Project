@@ -15,6 +15,7 @@ const postRoutes = require('./routes/search');
 const businessRoutes = require('./routes/business');
 const adminRoutes = require('./routes/admin');
 const feedbackRoutes = require('./routes/feedback');
+const sanitizationRoutes = require('./routes/sanitization');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 app.use(cors());
@@ -54,6 +55,7 @@ app.use('/leaderboard', leaderboardRoutes)
 app.use(businessRoutes)
 app.use(adminRoutes)
 app.use(feedbackRoutes)
+app.use(sanitizationRoutes)
 
 app.get('/', (req, res) => {
     res.render('home/index');
