@@ -16,6 +16,7 @@ const businessRoutes = require('./routes/business');
 const adminRoutes = require('./routes/admin');
 const feedbackRoutes = require('./routes/feedback');
 const sanitizationRoutes = require('./routes/sanitization');
+const desposalRoutes = require('./routes/desposal');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 app.use(cors());
@@ -56,15 +57,18 @@ app.use(businessRoutes)
 app.use(adminRoutes)
 app.use(feedbackRoutes)
 app.use(sanitizationRoutes)
+app.use(desposalRoutes)
 
 app.get('/', (req, res) => {
     res.render('home/index');
 });
 
 app.get('*', (req, res) => {
-    res.send("Hello, you are here at the Swipe2Clean MERN project!");
+    res.render('404/index');
 });
-
+app.get('/Err', (req, res) => {
+    res.render('404/index');
+});
 app.listen(8000, () => {
     console.log("Listening at port 8000!");
 });

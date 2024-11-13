@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swipe2Clean</title>
+  <link rel="stylesheet" href="/css/desposal.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="/images/logo.jpg" alt="Swipe2Clean Logo" class="logo">
+      <h2>Swipe2Clean</h2>
+    </div>
+    <div class="navbar-links">
+      <a href="#">Home</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+      <a href="#">Admin</a>
+    </div>
+    <div class="navbar-avatar">
+      <img src="/images/admin.jpg" alt="Admin Avatar" class="avatar">
+      <h4>Admin Name</h4>
+    </div>
+  </nav>
+
+  <div class="news-bar">
+    <div class="news-label">Latest News</div>
+    <div class="news-content">
+      <p>Lorem ipsum dolor sit amet consectetur...</p>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <aside class="sidebar">
+      <ul>
+        <% ["Dashboard", "Waste Categories", "Collection Schedule", "Reports", "Settings", "Logout"].forEach(function(item) { %>
+          <li>
+            <img src="/images/<%= item.toLowerCase().replace(/\s/g, '-') %>.png" alt="<%= item %> Icon">
+            <a href="#"><%= item %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </aside>
+
+    <section class="content">
+      <div class="section inventory">
+        <h1>Inventory</h1>
+        <div class="inventory-cards">
+          <% ["Total Waste", "Biodegradable Waste", "E-Waste", "Plastic-Waste"].forEach(function(type, index) { %>
+            <div class="inventory-card">
+              <p><%= type %>:</p>
+              <svg class="progress-circle" viewBox="0 0 160 160">
+                <circle class="circle-bg" cx="80" cy="80" r="50"></circle>
+                <circle class="circle" cx="80" cy="80" r="50" stroke="<%= ['#ff4c4c', '#4caf50', '#ffa500', '#2196f3'][index] %>"></circle>
+              </svg>
+              <div class="percentage">75%</div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="section history">
+        <h1>Pick-Up History</h1>
+        <div class="history-table">
+          <div class="table-header">
+            <span>Uid.</span>
+            <span>Time / Date</span>
+            <span>Type</span>
+            <span>Location</span>
+          </div>
+          <div class="table-body">
+            <!-- Pick-Up History Content -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#">About Swipe2Clean</a>
+      <a href="#">Our Team</a>
+      <a href="#">Career Guidance</a>
+      <a href="#">Support & FAQs</a>
+      <a href="#">Media Partners</a>
+      <a href="#">Explore Partnerships</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-info">
+      <img src="/images/logo.jpg" alt="Swipe2Clean Logo">
+      <p>Lorem ipsum dolor sit amet consectetur...</p>
+      <div class="social-icons">
+        <a href="#"><img src="/images/fb.png" alt="Facebook"></a>
+        <a href="#"><img src="/images/yt.png" alt="YouTube"></a>
+        <a href="#"><img src="/images/ins.png" alt="Instagram"></a>
+        <a href="#"><img src="/images/tt.png" alt="Twitter"></a>
+      </div>
+    </div>
+    <p>&copy; 2024 Swipe2Clean. All rights reserved. Developed by Your Company</p>
+  </footer>
+</body>
+</html>

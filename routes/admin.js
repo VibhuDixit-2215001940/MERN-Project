@@ -82,7 +82,8 @@ router.get('/Admin', ensureAuthenticated, async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server error');
+        // res.status(500).send('Server error');
+        res.redirect('/Err');
     }
 });
 router.get('/AdminLogout', (req, res) => {

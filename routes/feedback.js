@@ -25,7 +25,8 @@ router.post(
         res.json({ message: 'Feedback submitted successfully!' });
       } catch (error) {
         console.error('Database save error:', error); // Detailed error log
-        res.status(500).json({ message: 'Error submitting feedback. Please try again later.' });
+        // res.status(500).json({ message: 'Error submitting feedback. Please try again later.' });
+        res.redirect('/Err');
       }
     }
   );
@@ -36,7 +37,8 @@ router.get('/api/feedback', async (req, res) => {
       res.json(feedbacks);
   } catch (error) {
       console.error('Error fetching feedback:', error);
-      res.status(500).json({ message: 'Error fetching feedback.' });
+      // res.status(500).json({ message: 'Error fetching feedback.' });
+      res.redirect('/Err');
   }
 });
 

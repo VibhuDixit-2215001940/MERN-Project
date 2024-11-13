@@ -1,0 +1,186 @@
+/* Basic reset and styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #f0f5e4;
+    border-bottom: 2px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+  }
+  
+  .navbar-links a {
+    color: #4b4b4b;
+    font-size: 1.2em;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .navbar-links a:hover {
+    color: black;
+  }
+  
+  .navbar-avatar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  /* News Bar */
+  .news-bar {
+    display: flex;
+    align-items: center;
+    background-color: #1e3a8a;
+    color: white;
+    padding: 10px;
+  }
+  
+  .news-label {
+    background-color: #facc15;
+    color: black;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: #333;
+    color: white;
+    width: 200px;
+    padding: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar ul li img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  /* Main Content */
+  .main-content {
+    display: flex;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f5e4;
+  }
+  
+  /* Inventory Section */
+  .inventory {
+    margin-bottom: 30px;
+  }
+  
+  .inventory h1 {
+    font-size: 1.8em;
+  }
+  
+  .inventory-cards {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .inventory-card {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+  }
+  
+  .progress-circle {
+    transform: rotate(-90deg);
+  }
+  
+  .circle-bg, .circle {
+    fill: none;
+    stroke-width: 20;
+  }
+  
+  .circle-bg {
+    stroke: #e5e5e5;
+  }
+  
+  .circle {
+    stroke-dasharray: 314;
+    stroke-dashoffset: 78.5; /* 25% progress */
+  }
+  
+  .percentage {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .footer-links a {
+    color: #facc15;
+    text-decoration: none;
+  }
+  
+  .footer-info {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .footer-info img {
+    width: 80px;
+    margin: 10px 0;
+  }
+  
+  .social-icons img {
+    width: 30px;
+    margin: 0 5px;
+  }

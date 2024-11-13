@@ -23,7 +23,8 @@ router.get('/Profile', async (req, res) => {
         res.render('YourPost/profile', { user });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Server error');
+        // res.status(500).send('Server error');
+        res.redirect('/Err');
     }
 });
 //------------------------------------------------EDIT PROFILE-------------------------------------------------------------------
@@ -31,7 +32,8 @@ router.get('/Profile', async (req, res) => {
 router.get('/Profile/edit', ensureAuthenticated, async function(req, res) {
     const user = await User.findById(req.session.userId);
     if (!user) {
-        return res.status(404).send('User not found');
+        // return res.status(404).send('User not found');
+        res.redirect('/Err');
     }
     res.render('YourPost/editProfile', { user });
 });

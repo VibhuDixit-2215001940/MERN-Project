@@ -19,7 +19,8 @@ router.get('/Wallet', async function(req, res) {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server error');
+        // res.status(500).send('Server error');
+        res.redirect('/Err');
     }
 });
 module.exports = router;

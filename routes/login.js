@@ -100,7 +100,8 @@ router.post('/YourPost', upload, async (req, res) => {
         res.redirect('/YourPost');
     } catch (error) {
         console.error('Error saving complaint:', error);
-        res.render('complain/complain.ejs', { error: 'Failed to submit the complaint. Please try again later.' });
+        // res.render('complain/complain.ejs', { error: 'Failed to submit the complaint. Please try again later.' });
+        res.redirect('/Err');
     }
 });
 

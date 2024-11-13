@@ -14,7 +14,8 @@ router.get('/search', async (req, res) => {
 
         res.json(posts); // Send the matched posts as JSON
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        // res.status(500).json({ message: 'Server error' });
+        res.redirect('/Err');
     }
 });
 

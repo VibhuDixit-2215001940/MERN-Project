@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const BusinessUser = require('../models/BusinessUser');
-// Middleware to check if user is authenticated
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
+const { v4: uuidv4 } = require('uuid');
+function ensureAuthenticated(req, res, next) {// Middleware to ensure the user is authenticated
+    if (req.session.userId) {
+        return next();
     }
-    return res.status(401).send('Unauthorized');
-  }
+    res.redirect('/BusinessLogin'); // Redirect to login if not authenticated
+}
+function generateShortId() {
+    return uuidv4().split('-').join('').slice(0, 8); // Take first 8 characters of the UUID without dashes
+}
 router.get('/BusinessLogin', async (req, res) => {
     res.render('Business/BusinessLogin.ejs');
 });
@@ -24,7 +28,8 @@ router.post('/signupp', async (req, res) => {
         await user.save();
         res.redirect('/BusinessLogin'); // Redirect to login after signup
     } catch (err) {
-        res.status(500).send('Error signing up: ' + err.message);
+        // res.status(500).send('Error signing up: ' + err.message);
+        res.redirect('/Err');
     }
 });
 router.post('/loginn', async (req, res) => {
@@ -38,42 +43,22 @@ router.post('/loginn', async (req, res) => {
             res.status(400).send('Invalid username or password');
         }
     } catch (err) {
-        res.status(500).send('Error logging in: ' + err.message);
+        // res.status(500).send('Error logging in: ' + err.message);
+        res.redirect('/Err');
     }
 });
-router.get('/BusinessProfile',ensureAuthenticated,async (req, res) => {
-    // res.render('Business/profile.ejs'); 
+router.get('/BusinessProfile', async (req, res) => {
     try {
-        const userId = req.user.id; // Get user ID from the session
-        const userProfile = await BusinessUser.findById(userId);
-    
-        if (!userProfile) {
-          return res.status(404).send('Profile not found');
+        const user = await BusinessUser.findById(req.session.userId).lean(); // Use session user ID
+        if (!user) {
+            return res.status(404).send('User not found');
         }
-    
-        res.render('Business/profile.ejs', {
-          user: userProfile, // Pass user data to the EJS template
-          purchases: userProfile.purchases,
-          sales: userProfile.sales,
-          profit: userProfile.profit
-        });
-      } catch (error) {
-        res.status(500).send('Server error',error);
-      }
-})
-// Dummy functions for illustration, replace with actual implementation
-async function getUserPurchases(userId) {
-    // Logic to fetch the number of purchases for the user
-    return 10; // Replace with actual data
-}
+        res.render('Business/profile.ejs',{ user })
+    } catch (err) {
+        console.error(err);
+        // res.status(500).send('Server error');
+        res.redirect('/Err');
+    }
+});
 
-async function getUserSales(userId) {
-    // Logic to fetch the number of sales for the user
-    return 5; // Replace with actual data
-}
-
-async function getUserProfit(userId) {
-    // Logic to fetch the profit for the user
-    return 200; // Replace with actual data
-}
 module.exports = router;
