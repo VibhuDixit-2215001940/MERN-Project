@@ -31,7 +31,7 @@ A revolutionary waste management system empowering communities to achieve cleanl
 
 | **Component**  | **Technology**                   |
 |----------------|----------------------------------|
-| **Frontend**   | React, Tailwind CSS              |
+| **Frontend**   | Bootstrap CSS              |
 | **Backend**    | Node.js, Express.js              |
 | **Database**   | MongoDB                          |
 | **APIs**       | Google Maps, Trash AI            |
