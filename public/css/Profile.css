@@ -550,16 +550,94 @@ main .container .left .profile{
     }
   }
   .user-posts {
-    margin-top: 20px; /* Space above the user posts section */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin-bottom: 100px;
+    margin-left: 180px;
+    margin-top: 50px; /* Space above the user posts section */
     padding: 15px;    /* Padding around the section */
     background-color: #f9f9f9; /* Light background color */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+.card-container{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+   
+    
+}
+.username{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.yp{
+    padding: 20px;
+}
+.hryp{
+    width: 20px;
+    display: flex;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+        overflow-wrap: break-word;
+        border: 2px solid black;
+            border-radius: 10px;
+            max-height: 250px;
+            min-height: 250px;
+            padding: 10px;
+            transition: .5s linear;
+    
+}
+.card_content{
+    display: flex;
+    flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        margin: 10px;
+        margin-right: 20px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        height: auto;
+        max-width: 200px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        scrollbar-width: none;
+            /* For Firefox */
+            -ms-overflow-style: none;
+        
+}
+.card:hover{
+    transform: scale(1.1);
+    transition: .5s linear;
+}
+
+.para{
+    text-overflow: ellipsis;
+    width: 200px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.image{
+    max-height: 100px;
+    width: 200px;
+}
+.image img{
+    border-radius: 10px;
+}
 
 .user-posts h3 {
-    font-size: 24px; /* Font size for the section heading */
-    margin-bottom: 15px; /* Space below the heading */
+    font-size: 25px; /* Font size for the section heading */
     color: #333; /* Dark color for text */
 }
 
@@ -578,8 +656,8 @@ main .container .left .profile{
 }
 
 .post-header img {
-    width: 40px; /* Width of the profile picture */
-    height: 40px; /* Height of the profile picture */
+    width: 80px; /* Width of the profile picture */
+    height: 80px; /* Height of the profile picture */
     border-radius: 50%; /* Circular profile picture */
     margin-right: 10px; /* Space between image and name */
 }

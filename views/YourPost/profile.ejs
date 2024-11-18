@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swipe2Clean</title>
     <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/Profile.css" />
     <!-- Icons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="icon" type="image/x-icon" href="images/logo.jpg">
 
 </head>
+
 <body>
     <nav>
         <div class="container">
             <h2 class="logo">Community</h2>
             <div class="search-bar">
                 <i class="uil uil-search"></i>
-                <input type="search" id="sec" placeholder="search"> 
+                <input type="search" id="sec" placeholder="search">
             </div>
             <li>
                 <a class="menu-item" id="notification" href="#">
-                    <i class="uil uil-envelope"><small class="notification-count"><%= user.posts.length %>+</small></i>
+                    <i class="uil uil-envelope"><small class="notification-count">
+                            <%= user.posts.length %>+
+                        </small></i>
                 </a>
             </li>
             <div class="create">
@@ -33,189 +37,236 @@
                     <img src="<%= user.image ? user.image : 'images/user.jpg' %>" alt="lis">
                 </div>
             </div>
-            
+
         </div>
     </nav>
     <form method="post">
         <div id="feedback-main">
             <div id="feedback-div">
-              <form action="" method="post" class="form" id="feedback-form1" name="form1" enctype="multipart/form-data">
-                <p class="name">
-                  <input name="userr" type="name" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" required placeholder="Name" id="feedback-name" />
-                </p>
-          
-                <p class="email">
-                  <input name="uemail" type="email" class="validate[required,custom[email]] feedback-input" id="feedback-email" placeholder="Email" required />
-                </p>
-          
-                <p class="text">
-                  <textarea name="ucomment" type="comment" class="validate[required,length[6,300]] feedback-input" id="feedback-comment" required placeholder="Hey, I really love the site but I believe that you could incorporate some ..... and also get rid of the ...... on the section."></textarea>
-                </p>
-                <div class="feedback-submit">
-                  <input type="submit" value="SEND" id="feedback-button-blue" />
-                  <div class="feedback-ease"></div>
-                </div>
-              </form>
-            </div>
-          </div>
-    </form>
-      
-      <button id="popup" class="feedback-button" onclick="toggle_visibility()" name="Feedback">Feedback</button>
-    <main >
-        <div class="container">
-        <!-- Left -->
-        <div class="left">
-            <a href="/Profile" class="profile">
-                <div class="profile-photo">
-                    <img src="<%= user.image ? user.image : 'images/user.jpg' %>" alt="">
-                </div>
-                <div class="handel">
-                    <h4><%= user.fname %><i class="uil-pen"></i></h4>
-                    <p class="text-muted">bio...      </p>
-                </div>
-            </a>
-            <!-- Side baar -->
-            <div class="sidebar">
-                <ul>
-                    <li>
-                        <a class="menu-item active" href="/YourPost">
-                            <i class="uil uil-edit"></i>
-                            <span><h3>Feed</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/Event">
-                            <i class="uil uil-home"></i>
-                            <span><h3>Events</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/Wallet">
-                            <i class="uil uil-globe"></i>
-                            <span><h3>Wallet</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/Complain">
-                            <i class="uil uil-user-location"></i>
-                            <span><h3>Complain</h3></span>
-                        </a>
-                    </li>
-                   
-                    <li>
-                        <a class="menu-item" href="/leaderboard">
-                            <i class="uil uil-calendar-alt"></i>
-                            <span><h3>Leaderboard</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/Certificate">
-                            <i class="uil uil-book-reader"></i>
-                            <span><h3>Certificate</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu-item" href="/">
-                            <i class="uil uil-setting"></i>
-                            <span><h3>Logout</h3></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <a href="/CreatePost"><label for="create-post" class="btn btn-primary">Create Post</label></a>
+                <form action="" method="post" class="form" id="feedback-form1" name="form1"
+                    enctype="multipart/form-data">
+                    <p class="name">
+                        <input name="userr" type="name"
+                            class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" required
+                            placeholder="Name" id="feedback-name" />
+                    </p>
 
-        </div>
-        <!-- Mid -->
-        <div class="middle">
-            <div class="wrapper">
-                <div class="right">
-                    <div class="info">
-                        <h3>User Profile</h3>
-                        <div class="info_data">
-                             <div class="data">
-                                <h4>First Name</h4>
-                                <p><%= user.fname %> </p>
-                             </div>
-                             <div class="data">
-                               <h4>Last Name</h4>
-                                <p> <%= user.lname %> </p>
-                              </div>
-                              <div class="data">
-                                <h4>User Name</h4>
-                                <p> <%= user.username %> </p>
-                             </div>
-                             <div class="data">
-                                <h4>Last Login</h4>
-                                <p><%= user.lastLogin ? user.lastLogin.toLocaleString() : 'Never' %></p>
-                             </div>
-                             <div class="data">
-                                <h4>Email</h4>
-                                <p> <%= user.email %> </p>
-                             </div>
-                             <div class="data">
-                               <h4>Uploads</h4>
-                               <p><%= user.posts.length %></p> <!-- Total number of posts -->
-                              </div>
-                              <div class="data">
-                                <h4>Follower</h4>
-                                <p><%= user.followers ? user.followers.length : 0 %></p>
-                             </div>
-                             <div class="data">
-                                <h4>Following</h4>
-                                <p><%= user.following ? user.following.length : 0 %></p>
-                             </div>
-                        </div>
+                    <p class="email">
+                        <input name="uemail" type="email" class="validate[required,custom[email]] feedback-input"
+                            id="feedback-email" placeholder="Email" required />
+                    </p>
+
+                    <p class="text">
+                        <textarea name="ucomment" type="comment" class="validate[required,length[6,300]] feedback-input"
+                            id="feedback-comment" required
+                            placeholder="Hey, I really love the site but I believe that you could incorporate some ..... and also get rid of the ...... on the section."></textarea>
+                    </p>
+                    <div class="feedback-submit">
+                        <input type="submit" value="SEND" id="feedback-button-blue" />
+                        <div class="feedback-ease"></div>
                     </div>
-                    
-                </div>
+                </form>
             </div>
-            <button type="button" class="btn btn-primary"><a href="/Profile/edit">Edit</a></button>
-                </div>
         </div>
-        <!-- Right -->
-        <div class="user-posts text-center" id="Posts">
-            <h3>Your Posts</h3>
-            <div class="row justify-content-center">
-                <% if (user.posts && user.posts.length > 0) { %>
-                    <% user.posts.forEach(post => { %>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-header d-flex align-items-center">
-                                    <h4 class="mb-0"><%= user.fname %></h4>
+    </form>
+
+    <button id="popup" class="feedback-button" onclick="toggle_visibility()" name="Feedback">Feedback</button>
+    <main>
+        <div class="container">
+            <!-- Left -->
+            <div class="left">
+                <a href="/Profile" class="profile">
+                    <div class="profile-photo">
+                        <img src="<%= user.image ? user.image : 'images/user.jpg' %>" alt="">
+                    </div>
+                    <div class="handel">
+                        <h4>
+                            <%= user.fname %><i class="uil-pen"></i>
+                        </h4>
+                        <p class="text-muted">bio... </p>
+                    </div>
+                </a>
+                <!-- Side baar -->
+                <div class="sidebar">
+                    <ul>
+                        <li>
+                            <a class="menu-item active" href="/YourPost">
+                                <i class="uil uil-edit"></i>
+                                <span>
+                                    <h3>Feed</h3>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Event">
+                                <i class="uil uil-home"></i>
+                                <span>
+                                    <h3>Events</h3>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Wallet">
+                                <i class="uil uil-globe"></i>
+                                <span>
+                                    <h3>Wallet</h3>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Complain">
+                                <i class="uil uil-user-location"></i>
+                                <span>
+                                    <h3>Complain</h3>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="menu-item" href="/leaderboard">
+                                <i class="uil uil-calendar-alt"></i>
+                                <span>
+                                    <h3>Leaderboard</h3>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Certificate">
+                                <i class="uil uil-book-reader"></i>
+                                <span>
+                                    <h3>Certificate</h3>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/">
+                                <i class="uil uil-setting"></i>
+                                <span>
+                                    <h3>Logout</h3>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="/CreatePost"><label for="create-post" class="btn btn-primary">Create Post</label></a>
+
+            </div>
+            <!-- Mid -->
+            <div class="middle">
+                <div class="wrapper">
+                    <div class="right">
+                        <div class="info">
+                            <h3>User Profile</h3>
+                            <div class="info_data">
+                                <div class="data">
+                                    <h4>First Name</h4>
+                                    <p>
+                                        <%= user.fname %>
+                                    </p>
                                 </div>
-                                <div class="card-body">
-                                    <p class="card-text"><%= post.content %></p>
-                                    <% if (post.image) { %>
-                                        <img src="<%= post.image %>" alt="img" style="height: 100px; width: 100px;">
-                                    <% } %>
+                                <div class="data">
+                                    <h4>Last Name</h4>
+                                    <p>
+                                        <%= user.lname %>
+                                    </p>
+                                </div>
+                                <div class="data">
+                                    <h4>User Name</h4>
+                                    <p>
+                                        <%= user.username %>
+                                    </p>
+                                </div>
+                                <div class="data">
+                                    <h4>Last Login</h4>
+                                    <p>
+                                        <%= user.lastLogin ? user.lastLogin.toLocaleString() : 'Never' %>
+                                    </p>
+                                </div>
+                                <div class="data">
+                                    <h4>Email</h4>
+                                    <p>
+                                        <%= user.email %>
+                                    </p>
+                                </div>
+                                <div class="data">
+                                    <h4>Uploads</h4>
+                                    <p>
+                                        <%= user.posts.length %>
+                                    </p> <!-- Total number of posts -->
+                                </div>
+                                <div class="data">
+                                    <h4>Follower</h4>
+                                    <p>
+                                        <%= user.followers ? user.followers.length : 0 %>
+                                    </p>
+                                </div>
+                                <div class="data">
+                                    <h4>Following</h4>
+                                    <p>
+                                        <%= user.following ? user.following.length : 0 %>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    <% }); %>
-                <% } else { %>
-                    <p>No posts available.</p>
-                <% } %>
+
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary"><a href="/Profile/edit">Edit</a></button>
             </div>
         </div>
-        
-        
-    </div>
+        <!-- Right -->
+        <div class="user-posts text-center" id="Posts">
+            <h3 class="yp">Your Posts</h3>
+            <hr class="hryp">
+            <div class="card-container">
+                <% if (user.posts && user.posts.length> 0) { %>
+                    <% user.posts.forEach(post=> { %>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="username">
+                                    <h4 class="mb-0">
+                                        <%= user.fname %>
+                                    </h4>
+                                </div>
+                                <div class="card_content">
+                                    <div class="para">
+                                        <p class="card-text">
+                                            <%= post.content %>
+                                        </p>
+                                    </div>
+                                    <div class="image">
+                                        <% if (post.image) { %>
+                                            <img src="<%= post.image %>" alt="img">
+                                            <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p>No posts available.</p>
+                                <% } %>
+            </div>
+        </div>
+
+
+        </div>
     </main>
     <script>
         document.getElementById('sec').addEventListener('input', async function () {
-    const searchQuery = this.value;
+            const searchQuery = this.value;
 
-    if (searchQuery.length > 0) {
-        const response = await fetch(`/posts/search?q=${encodeURIComponent(searchQuery)}`);
-        const posts = await response.json();
+            if (searchQuery.length > 0) {
+                const response = await fetch(`/posts/search?q=${encodeURIComponent(searchQuery)}`);
+                const posts = await response.json();
 
-        // Select the container for displaying posts
-        const postsContainer = document.querySelector('.user-posts .row');
-        postsContainer.innerHTML = ''; // Clear existing posts
+                // Select the container for displaying posts
+                const postsContainer = document.querySelector('.user-posts .row');
+                postsContainer.innerHTML = ''; // Clear existing posts
 
-        if (posts.length > 0) {
-            posts.forEach(post => {
-                const postElement = `
+                if (posts.length > 0) {
+                    posts.forEach(post => {
+                        const postElement = `
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
@@ -228,23 +279,24 @@
                         </div>
                     </div>
                 `;
-                postsContainer.innerHTML += postElement;
-            });
-        } else {
-            postsContainer.innerHTML = '<p>No posts found matching the search.</p>';
-        }
-    }
-});
+                        postsContainer.innerHTML += postElement;
+                    });
+                } else {
+                    postsContainer.innerHTML = '<p>No posts found matching the search.</p>';
+                }
+            }
+        });
 
     </script>
     <script>
         function toggle_visibility() {
-   var e = document.getElementById('feedback-main');
-   if(e.style.display == 'block')
-      e.style.display = 'none';
-   else
-      e.style.display = 'block';
-}
-  </script>
+            var e = document.getElementById('feedback-main');
+            if (e.style.display == 'block')
+                e.style.display = 'none';
+            else
+                e.style.display = 'block';
+        }
+    </script>
 </body>
+
 </html>
