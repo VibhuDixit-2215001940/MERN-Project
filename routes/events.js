@@ -4,7 +4,7 @@ const Event = require('../models/Event');
 const User = require('../models/User');
 router.get('/Event', async (req, res) => {
     if (!req.session.userId) {
-        return res.redirect('/login'); // Redirect to login page if userId is missing
+        return res.redirect('/login');
     }
     try {
         const userinfo = await User.findById(req.session.userId);
@@ -15,7 +15,6 @@ router.get('/Event', async (req, res) => {
         res.render('events/events.ejs', { user: userinfo ,events:events });
     } catch (error) {
         console.error(error);
-        // res.status(500).send("An error occurred while retrieving user information");
         res.redirect('/Err');
     }
 });

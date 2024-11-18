@@ -3,7 +3,6 @@ const router = express.Router();
 const Feedback = require('../models/Feedback');
 const { body, validationResult } = require('express-validator');
 
-// Handle POST request for feedback form
 router.post(
     '/submit-feedback',
     [
@@ -24,8 +23,7 @@ router.post(
         await feedback.save();
         res.json({ message: 'Feedback submitted successfully!' });
       } catch (error) {
-        console.error('Database save error:', error); // Detailed error log
-        // res.status(500).json({ message: 'Error submitting feedback. Please try again later.' });
+        console.error('Database save error:', error);
         res.redirect('/Err');
       }
     }
@@ -33,11 +31,10 @@ router.post(
 // routes/feedback.js
 router.get('/api/feedback', async (req, res) => {
   try {
-      const feedbacks = await Feedback.find(); // Fetch all feedback from the database
+      const feedbacks = await Feedback.find(); 
       res.json(feedbacks);
   } catch (error) {
       console.error('Error fetching feedback:', error);
-      // res.status(500).json({ message: 'Error fetching feedback.' });
       res.redirect('/Err');
   }
 });

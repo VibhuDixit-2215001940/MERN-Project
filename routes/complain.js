@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const Complain = require('../models/Complain'); // Adjust the path based on your project structure
+const Complain = require('../models/Complain');
 const multer = require('multer');
 const path = require('path');
 router.get('/Complain', async function(req, res) {
@@ -10,9 +10,9 @@ router.get('/Complain', async function(req, res) {
         if (!userinfo) {
             return res.status(404).send('User not found');
         }
-        const totalComplaints = userinfo.complaintsCount; // Get the total number of complaints
-        const points = totalComplaints * 10; // Points: 10 points per complaint
-        const eRupees = totalComplaints * 100; // E-Rupees: 100 INR per complaint
+        const totalComplaints = userinfo.complaintsCount; 
+        const points = totalComplaints * 10; 
+        const eRupees = totalComplaints * 100; 
         res.render('complain/complain.ejs', {
             user: userinfo,
             totalComplaints,
@@ -21,12 +21,11 @@ router.get('/Complain', async function(req, res) {
         });
     } catch (error) {
         console.error(error);
-        // res.status(500).send('Server error');
         res.redirect('/Err');
     }
 });
 const storage = multer.diskStorage({
-    destination: './uploads/', // Directory to save uploaded images
+    destination: './uploads/', 
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -34,6 +33,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: {fileSize: 1 * 1024 * 1024} // Limit file size to 1MB
+    limits: {fileSize: 1 * 1024 * 1024} 
 }).single('garbage');
 module.exports = router;
