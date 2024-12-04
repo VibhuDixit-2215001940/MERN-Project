@@ -69,6 +69,9 @@ app.get('*', (req, res) => {
 app.get('/Err', (req, res) => {
     res.render('404/index');
 });
-app.listen(8000, () => {
-    console.log("Listening at port 8000!");
+// app.listen(8000, () => {
+//     console.log("Listening at port 8000!");
+// });
+app.listen(8000, '172.16.128.102', () => {
+    console.log("Listening at http://172.16.128.102:8000 (accessible on network)");
 });
