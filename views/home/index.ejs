@@ -335,17 +335,22 @@ e.style.display = 'block';
   </script>
   
     <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbxBqQd2m4ea_XLp2zM1fWuOCpWPkZ9wxFirITjQWMuhC1zFXb4Lvu7gGSAIcOkc0URZKA/exec'
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbx3kuwJRvU_NP9l4cseWQVROXMkwwzIDp3BomzE19kxnmPdEvKSzLUQMTLaoM3wHqfZQA/exec'
       const form = document.forms['submit-to-google-sheet']
       const msg=document.getElementById('msg')  
       form.addEventListener('submit', e => {
-        e.preventDefault()
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => {
-              msg.innerHTML="Thank you for submission"
-          })
-          .catch(error => console.error('Error!', error.message))
-      })
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      msg.innerHTML = "✅ Thank you for subscribing!"
+      setTimeout(() => msg.innerHTML = "", 3000)
+      form.reset()
+    })
+    .catch(error => {
+      console.error('Error!', error.message)
+      msg.innerHTML = "❌ Submission failed."
+    })
+})
     </script>
 
 </body>
