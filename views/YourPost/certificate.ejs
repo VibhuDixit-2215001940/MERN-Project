@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swipe2Clean</title>
-    <link rel="stylesheet" href="/css/Certificate.css">
-    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
-    <!-- Add CDN links for html2canvas and jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swipe2Clean</title>
+  <link rel="stylesheet" href="/css/Certificate.css" />
+  <link rel="icon" type="image/x-icon" href="images/logo.jpg" />
 </head>
 <body>
-    <header>
-        <img src="images/logo.jpg" alt="Padhega India Logo">
-        <h4>Get your certificate of Participation to</h4>
-        <h1> <a href="/YourPost" target="_blank" rel="noopener noreferrer">#SwachtaSarvopari</a></h1>
-    </header>
-    <main id="certificate">
-        <label for="name">Type Your Name</label>
-        <input required type="text" name="Name" autocomplete="name" placeholder="XYZ" id="name" minlength="3" maxlength="16">
-        <button id="submitBtn">Get Certificate</button>
-    </main>
-    <script>
-        document.getElementById("submitBtn").addEventListener("click", () => {
-            const name = document.getElementById("name").value;
-            
-            if (name.trim().length < 3) {
-                alert("Please enter a valid name.");
-                return;
-            }
-            
-            // Update certificate content
-            const certificate = document.getElementById("certificate");
-            certificate.innerHTML += `<h2>Certificate of Participation</h2><p>This is to certify that <strong>${name}</strong> has participated in #SwachtaSarvopari.</p>`;
-            
-            // Generate PDF
-            html2canvas(certificate, { scale: 3, useCORS: true }).then(canvas => {
-                const imgData = canvas.toDataURL("image/png");
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF("p", "mm", "a4");
-    
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-    
-                pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                pdf.save(`${name}_Certificate.pdf`);
-                
-                // Reset certificate content after download
-                certificate.innerHTML = `
-                    <label for="name">Type Your Name</label>
-                    <input required type="text" name="Name" autocomplete="name" placeholder="XYZ" id="name" minlength="3" maxlength="16">
-                    <button id="submitBtn">Get Certificate</button>
-                `;
-            });
-        });
-    </script>
-    
+  <header>
+    <img src="images/logo.jpg" alt="Padhega India Logo" />
+    <h4>Get your certificate of Participation to</h4>
+    <h1>
+      <a href="/YourPost" target="_blank" rel="noopener noreferrer">#SwachtaSarvopari</a>
+    </h1>
+  </header>
+
+  <main id="certificate">
+    <button id="submitBtn">Get Certificate</button>
+  </main>
+
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.href = "images/Certificate.png";
+      link.download = "Certificate.png"; 
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+      window.location.href = "/YourPost";
+    }, 500); 
+    });
+  </script>
 </body>
 </html>
