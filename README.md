@@ -62,6 +62,9 @@ Here’s a quick preview of the स्वच्छता सर्वोपर�
 **Admin**: To handle whole stats and other web realted functions
 ![Admin](https://github.com/user-attachments/assets/40bd5afb-b6bc-4770-b0b0-83ab5627c3e5)
 
+**Certificate**: For appreciation to best performers of our web
+![Certificate](https://github.com/user-attachments/assets/ee1c5584-01cd-4a68-8d18-05d033a352f1)
+
 **Stay tuned for more updates and features coming soon!**
 
 ---
