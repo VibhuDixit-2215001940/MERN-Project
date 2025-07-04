@@ -19,6 +19,7 @@ const sanitizationRoutes = require('./routes/sanitization');
 const desposalRoutes = require('./routes/desposal');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const MongoStore = require('connect-mongo');
 app.use(cors());
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
@@ -39,6 +40,16 @@ app.use(session({
     secret: 'secret_key',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database',
+        collectionName: 'sessions',
+        ttl: 14 * 24 * 60 * 60 // 14 days
+    }),
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // important for Render.com
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+    }
 }));
 
 app.use('/posts', postRoutes);

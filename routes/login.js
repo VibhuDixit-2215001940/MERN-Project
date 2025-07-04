@@ -30,6 +30,16 @@ router.post('/login', async (req, res) => {
     req.session.userImage = user.image;
     res.redirect('/YourPost');
 });
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Logout Error:', err);
+            return res.redirect('/YourPost');
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/');
+    });
+});
 
 function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
