@@ -34,7 +34,7 @@
                     <label class="btn btn-primary" for="create-a-post">Organise</label>
                 </a>
                 <div class="profile-photo">
-                    <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
+                    <img src="<%= user.image ? user.image : 'images/default.png' %>" alt="lis">
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="left">
                 <a href="/profile" class="profile">
                     <div class="profile-photo">
-                        <img src="<%= user.image ? user.image : 'images/default.jpg' %>" alt="lis">
+                        <img src="<%= user.image ? user.image : 'images/default.png' %>" alt="lis">
                     </div>
                     <div class="handel">
                         <h4><%= user.username %><i class="uil-pen"></i></h4>
@@ -116,7 +116,7 @@
                                 <header>Create Post</header>
                                 <form action="/CreatePost" method="POST" enctype="multipart/form-data">
                                     <div class="content">
-                                        <img src="/images/logo.png" alt="logo" id="profilepic">
+                                        <img src="/images/default.png" alt="logo" id="profilepic">
                                         <div class="details">
                                             <a href="/Profile" class="profile"><h3><%= user.username %></h3></a>
                                             <p><%= user.email %></p>
