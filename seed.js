@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Event = require('./models/Event'); // Adjust the path as necessary
 
-mongoose.connect('mongodb://localhost:27017/swipe2clean')
+mongoose.connect('mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database')
     .then(() => {
         console.log('MongoDB connected for seeding data.');
     })

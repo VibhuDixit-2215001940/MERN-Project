@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/swipe2clean', {})
+mongoose.connect('mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database', {})
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
