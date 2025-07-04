@@ -36,21 +36,25 @@ mongoose.connect('mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/
     .catch(err => console.error('MongoDB connection error:', err));
 
 app.use(express.urlencoded({ extended: false }));
+const sessionStore = MongoStore.create({
+    mongoUrl: 'mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database',
+    collectionName: 'sessions',
+    ttl: 14 * 24 * 60 * 60
+});
+console.log("Session store initialized with MongoDB");
+
 app.use(session({
     secret: 'secret_key',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database',
-        collectionName: 'sessions',
-        ttl: 14 * 24 * 60 * 60 // 14 days
-    }),
+    store: sessionStore,
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // important for Render.com
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }));
+
 
 app.use('/posts', postRoutes);
 app.use('/home', loginRoutes);
