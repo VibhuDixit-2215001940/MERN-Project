@@ -12,24 +12,32 @@ router.get('/login', (req, res) => {
     res.render('home/login');
 });
 router.post('/login', async (req, res) => {
+    console.log("Login request received:", req.body); // 👈 ADD THIS
     const { username, userpass } = req.body;
-    const user = await User.findOne({ username: username });
 
+    const user = await User.findOne({ username: username });
     if (!user) {
+        console.log("User not found:", username); // 👈 ADD THIS
         return res.render('home/login', { error: 'User not found' });
     }
 
     const isMatch = await bcrypt.compare(userpass, user.password);
     if (!isMatch) {
+        console.log("Incorrect password for:", username); // 👈 ADD THIS
         return res.render('home/login', { error: 'Incorrect password' });
     }
+
     user.lastLogin = new Date(); 
-    await user.save(); 
+    await user.save();
+
     req.session.userId = user._id;
-    req.session.userName = user.fname; 
+    req.session.userName = user.fname;
     req.session.userImage = user.image;
+
+    console.log("Login successful for:", username); // 👈 ADD THIS
     res.redirect('/YourPost');
 });
+
 router.get('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
