@@ -58,8 +58,17 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login');
 }
 router.get('/YourPost', ensureAuthenticated, (req, res) => {
-    res.render('YourPost/index');
+    try {
+        console.log("Rendering /YourPost for", req.session.userName);
+        res.render('YourPost/index', {
+            userName: req.session.userName || 'Guest'
+        });
+    } catch (err) {
+        console.error('Error rendering /YourPost:', err);
+        res.redirect('/Err');
+    }
 });
+
 // Set storage engine
 const storage = multer.diskStorage({
     destination: './uploads/', // Path to store uploaded files
