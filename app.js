@@ -44,13 +44,14 @@ const sessionStore = MongoStore.create({
 console.log("Session store initialized with MongoDB");
 
 app.use(session({
-    secret: 'secret_key',
+    secret: 'supersecret-key-123!@#',
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
         httpOnly: true,
         secure: process.env.RENDER === 'true',
+        sameSite: 'lax',
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }));

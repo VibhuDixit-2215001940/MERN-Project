@@ -11,12 +11,6 @@ function generateShortId() {
     return uuidv4().split('-').join('').slice(0, 8); // Take first 8 characters of the UUID without dashes
 }
 
-router.use(session({
-    secret: 'yourSecretKey',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}));
 function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
         return next();
