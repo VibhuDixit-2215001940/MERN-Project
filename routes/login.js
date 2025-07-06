@@ -57,7 +57,7 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/login');
 }
-router.get('/YourPost', (req, res) => {
+router.get('/YourPost',ensureAuthenticated, (req, res) => {
     try {
         console.log("Rendering /YourPost for", req.session.userName);
         res.render('YourPost/index', {
@@ -133,7 +133,6 @@ router.post('/YourPost', upload, async (req, res) => {
     }
 });
 
-module.exports = router;
 
 router.post('/register', async (req, res) => {
     const { username, uemail, fname, lname, userpass, re_enter } = req.body;
