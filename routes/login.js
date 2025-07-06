@@ -57,11 +57,12 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/login');
 }
-router.get('/YourPost', ensureAuthenticated, (req, res) => {
+router.get('/YourPost', (req, res) => {
     try {
         console.log("Rendering /YourPost for", req.session.userName);
         res.render('YourPost/index', {
-            userName: req.session.userName || 'Guest'
+            userName: req.session.userName || 'Guest',
+            userImage: req.session.userImage || 'images/default.png'
         });
     } catch (err) {
         console.error('Error rendering /YourPost:', err);
