@@ -28,11 +28,26 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://kit.fontawesome.com"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://kit.fontawesome.com",
+                "https://cdn.jsdelivr.net",
+                "https://script.google.com"
+            ],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://fonts.googleapis.com",
+                "https://cdn.jsdelivr.net"
+            ],
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://ka-f.fontawesome.com"],
+            connectSrc: [
+                "'self'",
+                "https://ka-f.fontawesome.com",
+                "https://script.google.com"
+            ],
         },
     },
 }));
