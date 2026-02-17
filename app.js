@@ -1,4 +1,7 @@
 const express = require('express');
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const app = express();
 const path = require('path');
 const ejsMate = require('ejs-mate');
@@ -31,20 +34,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database', {})
+mongoose.connect(process.env.MONGO_URL, {})
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 app.use(express.urlencoded({ extended: false }));
 const sessionStore = MongoStore.create({
-    mongoUrl: 'mongodb+srv://vibhu:vibhu1234@swipe2clean.xsecvro.mongodb.net/database',
+    mongoUrl: process.env.MONGO_URL,
     collectionName: 'sessions',
     ttl: 14 * 24 * 60 * 60
 });
 console.log("Session store initialized with MongoDB");
 
 app.use(session({
-    secret: 'supersecret-key-123!@#',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
@@ -88,6 +91,7 @@ app.get('/Err', (req, res) => {
 // app.listen(8000, () => {
 //     console.log("Listening at port 8000!");
 // });
-app.listen(8000, '0.0.0.0', () => {
-    console.log("Server running on port 8000");
+const port = process.env.PORT || 8000;
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port ${port}`);
 });
