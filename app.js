@@ -23,6 +23,19 @@ const desposalRoutes = require('./routes/desposal');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
+const helmet = require('helmet');
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://kit.fontawesome.com"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'", "https://ka-f.fontawesome.com"],
+        },
+    },
+}));
 app.use(cors());
 app.set('trust proxy', 1); // Essential for Azure/Heroku/Render
 app.use(methodOverride('_method'));
