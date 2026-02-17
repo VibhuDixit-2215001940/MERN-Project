@@ -12,29 +12,33 @@ router.get('/login', (req, res) => {
     res.render('home/login');
 });
 router.post('/login', async (req, res) => {
-    console.log("Login request received:", req.body); // 👈 ADD THIS
+    console.log("Login Attempt:", req.body);
     const { username, userpass } = req.body;
 
-    const user = await User.findOne({ username: username });
+    // Allow login with either Username OR Email
+    const user = await User.findOne({
+        $or: [{ username: username }, { email: username }]
+    });
+
     if (!user) {
-        console.log("User not found:", username); // 👈 ADD THIS
+        console.log("Login Failed: User not found -", username);
         return res.render('home/login', { error: 'User not found' });
     }
 
     const isMatch = await bcrypt.compare(userpass, user.password);
     if (!isMatch) {
-        console.log("Incorrect password for:", username); // 👈 ADD THIS
+        console.log("Login Failed: Wrong password -", username);
         return res.render('home/login', { error: 'Incorrect password' });
     }
 
-    user.lastLogin = new Date(); 
+    user.lastLogin = new Date();
     await user.save();
 
     req.session.userId = user._id;
     req.session.userName = user.fname;
     req.session.userImage = user.image;
 
-    console.log("Login successful for:", username); // 👈 ADD THIS
+    console.log("Login Success! Redirecting to /YourPost for user:", user.username);
     res.redirect('/YourPost');
 });
 
@@ -51,13 +55,13 @@ router.get('/logout', (req, res) => {
 
 function ensureAuthenticated(req, res, next) {
     if (req.session.userId) {
-        res.locals.userName = req.session.userName; 
-        res.locals.userImage = req.session.userImage; 
+        res.locals.userName = req.session.userName;
+        res.locals.userImage = req.session.userImage;
         return next();
     }
     res.redirect('/login');
 }
-router.get('/YourPost',ensureAuthenticated, (req, res) => {
+router.get('/YourPost', ensureAuthenticated, (req, res) => {
     try {
         console.log("Rendering /YourPost for", req.session.userName);
         res.render('YourPost/index', {
@@ -73,7 +77,7 @@ router.get('/YourPost',ensureAuthenticated, (req, res) => {
 // Set storage engine
 const storage = multer.diskStorage({
     destination: './uploads/', // Path to store uploaded files
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Rename file
     }
 });
@@ -82,7 +86,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: { fileSize: 1000000 }, // Limit file size (1MB in this case)
-    fileFilter: function(req, file, cb) {
+    fileFilter: function (req, file, cb) {
         checkFileType(file, cb);
     }
 }).single('garbage'); // 'garbage' is the field name in your form

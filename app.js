@@ -24,6 +24,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
 app.use(cors());
+app.set('trust proxy', 1); // Essential for Azure/Heroku/Render
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
