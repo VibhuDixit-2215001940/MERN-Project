@@ -32,6 +32,7 @@ app.use(helmet({
                 "'self'",
                 "'unsafe-inline'",
                 "https://kit.fontawesome.com",
+                "https://ka-f.fontawesome.com",
                 "https://cdn.jsdelivr.net",
                 "https://script.google.com"
             ],
@@ -39,9 +40,14 @@ app.use(helmet({
                 "'self'",
                 "'unsafe-inline'",
                 "https://fonts.googleapis.com",
-                "https://cdn.jsdelivr.net"
+                "https://cdn.jsdelivr.net",
+                "https://ka-f.fontawesome.com"
             ],
-            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            fontSrc: [
+                "'self'",
+                "https://fonts.gstatic.com",
+                "https://ka-f.fontawesome.com"
+            ],
             imgSrc: ["'self'", "data:", "https:"],
             connectSrc: [
                 "'self'",
