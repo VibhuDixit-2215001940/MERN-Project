@@ -33,28 +33,25 @@ app.use(helmet({
             scriptSrc: [
                 "'self'",
                 "'unsafe-inline'",
-                "https://kit.fontawesome.com",
-                "https://ka-f.fontawesome.com",
-                "https://cdn.jsdelivr.net",
-                "https://script.google.com"
+                "https://*.fontawesome.com",
+                "https://cdn.jsdelivr.net"
             ],
             styleSrc: [
                 "'self'",
                 "'unsafe-inline'",
                 "https://fonts.googleapis.com",
                 "https://cdn.jsdelivr.net",
-                "https://ka-f.fontawesome.com"
+                "https://*.fontawesome.com"
             ],
             fontSrc: [
                 "'self'",
                 "https://fonts.gstatic.com",
-                "https://ka-f.fontawesome.com"
+                "https://*.fontawesome.com"
             ],
             imgSrc: ["'self'", "data:", "https:"],
             connectSrc: [
                 "'self'",
-                "https://ka-f.fontawesome.com",
-                "https://script.google.com"
+                "https://*.fontawesome.com"
             ],
         },
     },
