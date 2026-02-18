@@ -252,8 +252,8 @@
       </div>
       <div class="right box">
         <div class="topic">Get Notifications</div>
-        <form name="submit-to-google-sheet" method="post">
-          <input type="text" placeholder="Enter email address" name="email">
+        <form id="newsletter-form" method="post">
+          <input type="email" placeholder="Enter email address" name="email" required>
           <input type="submit" value="Send">
         </form>
         <span id="msg"></span>
@@ -335,22 +335,27 @@ e.style.display = 'block';
   </script>
   
     <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbx3kuwJRvU_NP9l4cseWQVROXMkwwzIDp3BomzE19kxnmPdEvKSzLUQMTLaoM3wHqfZQA/exec'
-      const form = document.forms['submit-to-google-sheet']
-      const msg=document.getElementById('msg')  
-      form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => {
-      msg.innerHTML = "✅ Thank you for subscribing!"
-      setTimeout(() => msg.innerHTML = "", 3000)
-      form.reset()
-    })
-    .catch(error => {
-      console.error('Error!', error.message)
-      msg.innerHTML = "❌ Submission failed."
-    })
-})
+      const newsletterForm = document.getElementById('newsletter-form');
+      const msg = document.getElementById('msg');
+      newsletterForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email = newsletterForm.querySelector('input[name="email"]').value;
+          try {
+              const response = await fetch('/subscribe', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ email })
+              });
+              const result = await response.json();
+              msg.innerHTML = result.message;
+              setTimeout(() => msg.innerHTML = '', 4000);
+              if (response.ok) newsletterForm.reset();
+          } catch (error) {
+              console.error('Error!', error);
+              msg.innerHTML = '❌ Submission failed. Try again.';
+              setTimeout(() => msg.innerHTML = '', 4000);
+          }
+      });
     </script>
 
 </body>

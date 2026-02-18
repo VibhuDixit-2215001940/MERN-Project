@@ -20,6 +20,8 @@ const adminRoutes = require('./routes/admin');
 const feedbackRoutes = require('./routes/feedback');
 const sanitizationRoutes = require('./routes/sanitization');
 const desposalRoutes = require('./routes/desposal');
+const newsletterRoutes = require('./routes/newsletter');
+const { startEmailScheduler } = require('./utils/emailScheduler');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoStore = require('connect-mongo');
@@ -70,7 +72,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGO_URL, {})
-    .then(() => console.log('Connected to MongoDB'))
+    .then(() => {
+        console.log('Connected to MongoDB');
+        startEmailScheduler();
+    })
     .catch(err => console.error('MongoDB connection error:', err));
 
 app.use(express.urlencoded({ extended: false }));
@@ -112,6 +117,7 @@ app.use(adminRoutes)
 app.use(feedbackRoutes)
 app.use(sanitizationRoutes)
 app.use(desposalRoutes)
+app.use(newsletterRoutes)
 
 app.get('/', (req, res) => {
     res.render('home/index');
