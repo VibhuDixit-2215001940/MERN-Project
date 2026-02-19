@@ -144,7 +144,7 @@ router.post('/register', async (req, res) => {
         return res.render('home/login', { error: "Passwords do not match" });
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$/;
     if (!passwordRegex.test(userpass)) {
         return res.render('home/login', { error: "Password must contain at least one lowercase letter, one number, and one special character." });
     }

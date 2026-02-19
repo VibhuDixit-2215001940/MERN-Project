@@ -24,9 +24,9 @@ router.post('/signupp', async (req, res) => {
         return res.status(400).send('Passwords do not match');
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$/;
     if (!passwordRegex.test(newPassword)) {
-        return res.status(400).send('Password must contain at least one lowercase letter, one number, and one special character.');
+        return res.render('Business/BusinessLogin', { error: 'Password must contain at least one lowercase letter, one number, and one special character.' });
     }
     try {
         const user = new BusinessUser({ username: newUserName, password: newPassword });

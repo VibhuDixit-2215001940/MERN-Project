@@ -15,54 +15,61 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form method="post" class="sign-in-form" action="/login">
-                    <h2 class="title">Login</h2>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username/Email" id="username" name="username" />
+                <% if (typeof error !=='undefined' && error) { %>
+                    <div
+                        style="color: #d9534f; background-color: #f2dede; border: 1px solid #ebccd1; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center; font-size: 14px;">
+                        <%= error %>
                     </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" name="userpass" />
-                    </div>
-                    <input type="submit" value="Login" class="btn solid" />
-                </form>
+                    <% } %>
+                        <form method="post" class="sign-in-form" action="/login">
+                            <h2 class="title">Login</h2>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Username/Email" id="username" name="username" />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Password" name="userpass" />
+                            </div>
+                            <input type="submit" value="Login" class="btn solid" />
+                        </form>
 
-                <form method="post" class="sign-up-form" action="/register">
-                    <h2 class="title">Sign Up</h2>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" name="username" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" name="uemail" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="First Name" name="fname" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Last Name" name="lname" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" name="userpass"
-                            pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
-                            title="Password must contain at least one lowercase letter, one number, and one special character."
-                            required />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Re-enter Password" name="re_enter"
-                            pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
-                            title="Password must contain at least one lowercase letter, one number, and one special character."
-                            required />
-                    </div>
-                    <input type="submit" value="Sign Up" class="btn solid" />
-                    <a class="social-text" target="_blank" href="https://www.google.com/">Need help to Sign Up? </a>
-                </form>
+                        <form method="post" class="sign-up-form" action="/register">
+                            <h2 class="title">Sign Up</h2>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Username" name="username" />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" placeholder="Email" name="uemail" />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="First Name" name="fname" />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Last Name" name="lname" />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Password" name="userpass"
+                                    pattern="^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$"
+                                    title="Password must contain at least one lowercase letter, one number, and one special character."
+                                    required />
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" placeholder="Re-enter Password" name="re_enter"
+                                    pattern="^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$"
+                                    title="Password must contain at least one lowercase letter, one number, and one special character."
+                                    required />
+                            </div>
+                            <input type="submit" value="Sign Up" class="btn solid" />
+                            <a class="social-text" target="_blank" href="https://www.google.com/">Need help to Sign Up?
+                            </a>
+                        </form>
             </div>
         </div>
         <div class="panels-container">

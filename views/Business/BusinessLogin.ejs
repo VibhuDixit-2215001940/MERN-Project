@@ -122,44 +122,53 @@
     </div>
     <div class="text-center mt-4 name">Business</div>
 
-    <!-- Login Form -->
-    <form id="loginForm" class="p-3 mt-3" action="/loginn" method="POST">
-      <div class="form-field d-flex align-items-center">
-        <span class="far fa-user"></span>
-        <input type="text" name="userName" id="userName" placeholder="Username" required>
+    <% if (typeof error !=='undefined' && error) { %>
+      <div
+        style="color: #d9534f; background-color: #f2dede; border: 1px solid #ebccd1; padding: 10px; border-radius: 4px; margin-top: 15px; margin-bottom: 5px; text-align: center; font-size: 14px;">
+        <%= error %>
       </div>
-      <div class="form-field d-flex align-items-center">
-        <span class="fas fa-key"></span>
-        <input type="password" name="password" id="pwd" placeholder="Password" required>
-      </div>
-      <button class="btn mt-3">Login</button>
-    </form>
+      <% } %>
 
-    <!-- Signup Form -->
-    <form id="signupForm" class="p-3 mt-3" action="/signupp" method="POST">
-      <div class="form-field d-flex align-items-center">
-        <span class="far fa-user"></span>
-        <input type="text" name="newUserName" id="newUserName" placeholder="New Username" required>
-      </div>
-      <div class="form-field d-flex align-items-center">
-        <span class="fas fa-key"></span>
-        <input type="password" name="newPassword" id="newPwd" placeholder="Password"
-          pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
-          title="Password must contain at least one lowercase letter, one number, and one special character." required>
-      </div>
-      <div class="form-field d-flex align-items-center">
-        <span class="fas fa-key"></span>
-        <input type="password" name="confirmPassword" id="confirmPwd" placeholder="Re-enter Password"
-          pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
-          title="Password must contain at least one lowercase letter, one number, and one special character." required>
-      </div>
-      <button class="btn mt-3">Sign Up</button>
-    </form>
+        <!-- Login Form -->
+        <form id="loginForm" class="p-3 mt-3" action="/loginn" method="POST">
+          <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="userName" id="userName" placeholder="Username" required>
+          </div>
+          <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="password" id="pwd" placeholder="Password" required>
+          </div>
+          <button class="btn mt-3">Login</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="p-3 mt-3" action="/signupp" method="POST">
+          <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="text" name="newUserName" id="newUserName" placeholder="New Username" required>
+          </div>
+          <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="newPassword" id="newPwd" placeholder="Password"
+              pattern="^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$"
+              title="Password must contain at least one lowercase letter, one number, and one special character."
+              required>
+          </div>
+          <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="confirmPassword" id="confirmPwd" placeholder="Re-enter Password"
+              pattern="^(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z0-9\s]).+$"
+              title="Password must contain at least one lowercase letter, one number, and one special character."
+              required>
+          </div>
+          <button class="btn mt-3">Sign Up</button>
+        </form>
 
 
-    <div class="text-center fs-6">
-      <a href="#">Forget password?</a> or <a href="#" onclick="toggleForm()">Sign up</a>
-    </div>
+        <div class="text-center fs-6">
+          <a href="#">Forget password?</a> or <a href="#" onclick="toggleForm()">Sign up</a>
+        </div>
   </div>
 
   <script>
