@@ -143,6 +143,11 @@ router.post('/register', async (req, res) => {
     if (userpass !== re_enter) {
         return res.render('home/login', { error: "Passwords do not match" });
     }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
+    if (!passwordRegex.test(userpass)) {
+        return res.render('home/login', { error: "Password must contain at least one lowercase letter, one number, and one special character." });
+    }
     const existingUser = await User.findOne({ username: username });
     if (existingUser) {
         return res.render('home/login', { error: 'Username already exists' });

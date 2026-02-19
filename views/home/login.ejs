@@ -7,7 +7,7 @@
     <title>Swipe2Clean</title>
     <!-- <link rel="stylesheet" href="{% static 'css/login1.css' %}"> -->
     <link rel="icon" type="image/x-icon" href="/images/logo.jpg">
-<link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 </head>
 
@@ -48,11 +48,17 @@
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" name="userpass" />
+                        <input type="password" placeholder="Password" name="userpass"
+                            pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
+                            title="Password must contain at least one lowercase letter, one number, and one special character."
+                            required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Re-enter Password" name="re_enter" />
+                        <input type="password" placeholder="Re-enter Password" name="re_enter"
+                            pattern="^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?&quot;:{}|<>]).+$"
+                            title="Password must contain at least one lowercase letter, one number, and one special character."
+                            required />
                     </div>
                     <input type="submit" value="Sign Up" class="btn solid" />
                     <a class="social-text" target="_blank" href="https://www.google.com/">Need help to Sign Up? </a>
